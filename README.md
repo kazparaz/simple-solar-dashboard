@@ -20,3 +20,4 @@ Your app is ready to be deployed!
 ### TODO
 
 - storybook (https://github.com/ryansolid/solid/blob/master/documentation/storybook.md)
+- css lint

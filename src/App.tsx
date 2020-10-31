@@ -1,1 +1,3 @@
-export const HelloMessage = (props: { name: string }) => <div>Hello {props.name}</div>
+export const HelloMessage = (props: { readonly name: string }): JSX.Element => {
+  return <div>Hello {props.name}</div>
+}

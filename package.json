@@ -6,6 +6,7 @@
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,js,tsx,jsx}' --quiet --fix && prettier --write 'src/**/*.{ts,js,tsx,jsx,json}'"
   },
   "dependencies": {
+    "solid-app-router": "0.0.10",
     "solid-js": "^0.21.4"
   },
   "devDependencies": {

@@ -10,7 +10,9 @@ module.exports = {
   installOptions: {
     installTypes: true,
   },
-  devOptions: {},
+  devOptions: {
+    open: 'none',
+  },
   buildOptions: {},
   proxy: {},
   alias: {},

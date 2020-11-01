@@ -11,22 +11,44 @@ module.exports = {
     },
     project: './tsconfig.json',
   },
-  ignorePatterns: ['.eslintrc.js', '.babelrc.js', 'snowpack.config.js'],
+  ignorePatterns: ['.eslintrc.js', '.babelrc.js', 'snowpack.config.js', '*.js'],
   plugins: ['functional'],
-  settings: {},
   extends: [
     'eslint:recommended',
-    // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
+    // @see https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    // https://github.com/jonaskello/eslint-plugin-functional
+    // @see https://github.com/jonaskello/eslint-plugin-functional
     'plugin:functional/external-recommended',
     'plugin:functional/lite',
+    // @see https://github.com/benmosher/eslint-plugin-import
+    'plugin:import/errors',
+    'plugin:import/typescript',
+    // @see https://github.com/sindresorhus/eslint-plugin-unicorn
+    'plugin:unicorn/recommended',
   ],
   rules: {
-    // https://github.com/jonaskello/eslint-plugin-functional/blob/master/docs/rules/no-return-void.md
     'functional/no-return-void': 'off',
     'functional/no-throw-statement': 'off',
+
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-absolute-path': 'error',
+    'import/no-cycle': 'error',
+    'import/no-dynamic-require': 'error',
+    'import/no-extraneous-dependencies': 'error',
+    'import/no-self-import': 'error',
+    'import/no-unused-modules': 'error',
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external'],
+        'newlines-between': 'never',
+        alphabetize: { order: 'asc' },
+      },
+    ],
+
+    'unicorn/filename-case': ['error', { case: 'kebabCase', ignore: ['\\.tsx$'] }],
   },
 }

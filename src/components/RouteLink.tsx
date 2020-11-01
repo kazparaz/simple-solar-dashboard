@@ -1,13 +1,7 @@
 import { Link } from 'solid-app-router'
-import type { routes } from '../App'
+import type { Routes } from '..'
 
-export function RouteLink({
-  title,
-  route,
-}: {
-  readonly title: string
-  readonly route: keyof typeof routes
-}): JSX.Element {
+export function RouteLink({ title, route }: { readonly title: string; readonly route: Routes }): JSX.Element {
   return (
     <Link class="nav" href={route}>
       {title}

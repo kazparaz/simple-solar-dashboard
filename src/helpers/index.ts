@@ -1,9 +1,24 @@
-export function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
-  if (val === undefined || val === null) {
+export function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
+  if (value === undefined || value === null) {
     throw new Error(`Expected value to be defined`)
   }
 }
 
-export const ensureTypeExtends = <T>() => <V extends T>(value: V): V => {
-  return value
+// Hacky way to define a wanted type, but get a better type inference
+export function ensureType<T>() {
+  return <V extends T>(value: V): V => {
+    return value
+  }
+}
+
+export function mapObject<
+  T extends Record<string | number, unknown>,
+  Mapped extends readonly [string | number, unknown]
+>(
+  object: T,
+  mapFn: (entry: readonly [keyof T, T[keyof T]], index: number) => Mapped
+): Readonly<Record<Mapped[0], Mapped[1]>> {
+  return Object.fromEntries(
+    Object.entries(object).map((entry, index) => mapFn(entry as readonly [keyof T, T[keyof T]], index))
+  ) as Readonly<Record<Mapped[0], Mapped[1]>>
 }

@@ -31,6 +31,7 @@ module.exports = {
   rules: {
     'functional/no-return-void': 'off',
     'functional/no-throw-statement': 'off',
+    'functional/functional-parameters': 'off',
 
     'import/first': 'error',
     'import/newline-after-import': 'error',
@@ -50,5 +51,6 @@ module.exports = {
     ],
 
     'unicorn/filename-case': ['error', { case: 'kebabCase', ignore: ['\\.tsx$'] }],
+    'unicorn/prevent-abbreviations': 'off',
   },
 }

@@ -23,3 +23,5 @@ Your app is ready to be deployed!
 - css server side render (https://typestyle.github.io/#/server)
 - update snowpack when releases (https://github.com/snowpackjs/snowpack/discussions/1312)
 - Form component ?
+- CSS modules vs augmented typestyle
+- style-lint?

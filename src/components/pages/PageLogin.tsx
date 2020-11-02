@@ -40,7 +40,8 @@ export function PageLogin(): JSX.Element {
         <Spacer height={24} />
         <Input label="Password" type="password" />
         <Spacer height={24} />
-        <Button text="Log in" />
+        <Button text="Log in" type={'primary'} />
+        <Button text="Log in" type={'secondary'} />
       </div>
     </div>
   )

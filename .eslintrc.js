@@ -52,5 +52,6 @@ module.exports = {
 
     'unicorn/filename-case': ['error', { case: 'kebabCase', ignore: ['\\.tsx$'] }],
     'unicorn/prevent-abbreviations': 'off',
+    'unicorn/no-reduce': 'off'
   },
 }

@@ -3,6 +3,7 @@
  */
 
 import * as flex from 'csstips/lib/flex'
+import { DeprecatedSystemColor, NamedColor } from 'csstype'
 import { border, percent } from 'csx'
 import { classes, stylesheet, style } from 'typestyle'
 import type { CSSProperties } from 'typestyle/lib/types'
@@ -29,4 +30,11 @@ export const utils = {
   flex,
   percent,
   border,
+}
+
+declare module 'typestyle/lib/types' {
+  // eslint-disable-next-line functional/prefer-type-literal
+  export interface CSSProperties {
+    readonly color?: keyof typeof guide.colors
+  }
 }

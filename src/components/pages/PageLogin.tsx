@@ -1,47 +1,95 @@
+import { useRouter } from 'solid-app-router'
+import { createState, Show } from 'solid-js'
+import { api } from '../../helpers/api'
 import Logo from '../../images/PVcase-logo.svg'
-import { guide, utils } from '../../styles'
+import { sg, css } from '../../styles'
 import { Button } from '../Button'
 import { Input } from '../Input'
 import { Spacer } from '../Spacer'
 
-const css = utils.stylesheet({
+const style = css.stylesheet({
   roundBox: {
     padding: 32,
-    background: guide.colors['#FFFFFF'],
+    background: sg.colors['#FFFFFF'],
     borderRadius: 8,
-    border: utils.border({ width: 1, style: 'solid', color: guide.colors['#DEDEDE'] }),
+    border: css.border({ width: 1, style: 'solid', color: sg.colors['#0B382B'] }),
     boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.4)',
   },
   loginWrap: {
-    width: utils.percent(100),
-    height: utils.percent(100),
-    background: guide.colors['#262626'],
+    width: '100%',
+    height: '100%',
+    background: sg.colors['#262626'],
   },
   loginBox: {
     minWidth: 364,
   },
   loginSubText: {
-    ...guide.fontSize['16'],
-    color: guide.colors['#C4C4C4'],
+    ...sg.fontSize['16'],
+    color: sg.colors['#C4C4C4'],
   },
 })
 
 export function PageLogin(): JSX.Element {
+  const [state, setState] = createState({
+    inputs: { username: '', password: '' },
+    status: undefined as undefined | 'success' | 'failed' | 'loading',
+  })
+  const { router } = useRouter()
+
+  async function handleLogin(): Promise<void> {
+    setState({ status: 'loading' })
+    const response = await api.login(state.inputs)
+    if ('error' in response) {
+      setState({ status: 'failed' })
+      console.log(response.error)
+    }
+    if ('success' in response && response.success) {
+      setState({ status: 'success' })
+      return router.push('/dashboard')
+    }
+    setState({ status: 'failed' })
+  }
+
   return (
-    <div class={utils.classes(css.loginWrap, utils.flex.centerCenter)}>
-      <div class={utils.classes(css.loginBox, css.roundBox, utils.flex.vertical, utils.flex.center)}>
+    <div class={css.class(style.loginWrap, css.flex.centerCenter)}>
+      <div class={css.class(style.loginBox, style.roundBox, css.flex.vertical, css.flex.center)}>
         <img src={Logo} alt="PVcase logo" />
         <Spacer height={28} />
         <h1>Log in</h1>
         <Spacer height={14} />
-        <p class={css.loginSubText}>Enter your details below</p>
+        <p class={style.loginSubText}>Enter your details below</p>
         <Spacer height={53} />
-        <Input label="Email" type="email" />
-        <Spacer height={24} />
-        <Input label="Password" type="password" />
-        <Spacer height={24} />
-        <Button text="Log in" type={'primary'} />
-        <Button text="Log in" type={'secondary'} />
+
+        <Show when={state.status === 'failed'}>
+          <h4 class={css.class({ color: '#D11C32' })}>Login failed</h4>
+          <Spacer height={10} />
+        </Show>
+        <Show when={state.status === 'loading'}>
+          <h4>Loading...</h4>
+          <Spacer height={10} />
+        </Show>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            void handleLogin()
+          }}>
+          <Input
+            label="Name"
+            type="text"
+            required
+            onChange={(v) => setState({ inputs: { ...state.inputs, username: v } })}
+          />
+          <Spacer height={24} />
+          <Input
+            label="Password"
+            type="password"
+            required
+            onChange={(v) => setState({ inputs: { ...state.inputs, password: v } })}
+          />
+          <Spacer height={24} />
+          <Button text="Log in" type="submit" />
+        </form>
       </div>
     </div>
   )

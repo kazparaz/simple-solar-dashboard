@@ -1,20 +1,24 @@
 import { stylesheet } from 'typestyle'
-import { guide, utils } from '../styles'
+import { sg, css } from '../styles'
 
-const css = stylesheet({
+const styles = stylesheet({
   button: {
-    height: 40,
-    width: utils.percent(100),
-    background: guide.colors['#20554E'],
-    // color: guide.colors['#FFFFFF'],
-    color: '',
-    borderRadius: 4,
     appearance: 'none',
-    border: utils.border({ width: 1, style: 'solid', color: guide.colors['#0B382B'] }),
-    ...guide.fontSize['14'],
+    height: 40,
+    width: '100%',
+    padding: '0 10px',
+    background: sg.colors['#20554E'],
+    color: sg.colors['#FFFFFF'],
+    borderRadius: 4,
+    border: css.border({ width: 1, style: 'solid', color: sg.colors['#0B382B'] }),
+    ...sg.fontSize['14'],
+    cursor: 'pointer',
   },
 })
 
-export function Button(props: { readonly text: string; readonly type?: 'primary' | 'secondary' }): JSX.Element {
-  return <button class={css.button}>{props.text}</button>
+export function Button(props: {
+  readonly text: string
+  readonly type: JSX.ButtonHTMLAttributes<unknown>['type']
+}): JSX.Element {
+  return <button class={styles.button}>{props.text}</button>
 }

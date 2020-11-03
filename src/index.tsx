@@ -5,6 +5,7 @@
 import { Route, Router } from 'solid-app-router'
 import type { Component } from 'solid-js'
 import { render } from 'solid-js/dom'
+import { PageDashboard } from './components/pages/PageDashboard'
 import { PageLogin } from './components/pages/PageLogin'
 import { assertIsDefined, ensureType } from './helpers'
 import { addGlobalStyles } from './styles/global'
@@ -17,6 +18,7 @@ const routes = ensureType<Record<string, Component<unknown>>>()({
   '*': () => <div>404 Page not found</div>,
   '/': () => <div>Homepage</div>,
   '/login': PageLogin,
+  '/dashboard': PageDashboard,
 })
 
 function App(): JSX.Element {

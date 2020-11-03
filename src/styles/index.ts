@@ -3,16 +3,13 @@
  */
 
 import * as flex from 'csstips/lib/flex'
-import { DeprecatedSystemColor, NamedColor } from 'csstype'
-import { border, percent } from 'csx'
+import { border } from 'csx'
 import { classes, stylesheet, style } from 'typestyle'
 import type { CSSProperties } from 'typestyle/lib/types'
 import * as styleguide from './styleguide'
 
-export const guide = styleguide
-
-// better typing and auto convert styles to string
-function improvedClasses(...values: ReadonlyArray<string | Record<string, boolean> | CSSProperties>): string {
+// more strict types and auto convert styles to class name
+function classJoin(...values: ReadonlyArray<string | Record<string, boolean> | CSSProperties>): string {
   return classes(
     ...values.map((value) => {
       if (typeof value === 'string') return value
@@ -23,18 +20,22 @@ function improvedClasses(...values: ReadonlyArray<string | Record<string, boolea
   )
 }
 
-export const utils = {
-  classes: improvedClasses,
-  style,
+export const sg = styleguide
+
+export const css = {
+  class: classJoin,
   stylesheet,
+  // style,
   flex,
-  percent,
   border,
 }
 
+// TODO only allowed
+// More strict types for css properties
 declare module 'typestyle/lib/types' {
+  type Color = 'blu'
   // eslint-disable-next-line functional/prefer-type-literal
   export interface CSSProperties {
-    readonly color?: keyof typeof guide.colors
+    readonly color?: 'currentColor' | keyof typeof sg.colors
   }
 }

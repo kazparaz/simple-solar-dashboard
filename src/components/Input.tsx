@@ -1,42 +1,63 @@
-import { guide, utils } from '../styles'
+import { createState, Show } from 'solid-js'
+import { sg, css } from '../styles'
+import { Icon } from './Icon'
 import { Spacer } from './Spacer'
 
-const css = utils.stylesheet({
+const styles = css.stylesheet({
   inputWrap: {
     display: 'block',
-    width: utils.percent(100),
+    width: '100%',
   },
   label: {
     cursor: 'pointer',
   },
   input: {
-    width: utils.percent(100),
+    width: '100%',
     height: 33,
-    border: utils.border({ width: 1, style: 'solid', color: guide.colors['#C4C4C4'] }),
+    padding: '0 10px',
+    border: css.border({ width: 1, style: 'solid', color: sg.colors['#C4C4C4'] }),
     borderRadius: 3,
+    ...sg.fontSize['12'],
     $nest: {
       '&:hover': {
-        borderColor: guide.colors['#878787'],
+        borderColor: sg.colors['#878787'],
+      },
+      '&:focus': {
+        outline: 'none',
+        borderColor: sg.colors['#1E8072'],
       },
     },
   },
 })
 
-export function Input({
-  label,
-  name,
-  type,
-}: {
+export function Input(props: {
   readonly label: string
   readonly name?: string
   readonly type: 'text' | 'password' | 'email'
+  readonly required?: boolean
+  readonly onChange?: (value: string) => void
 }): JSX.Element {
+  const [state, setState] = createState({ value: '' })
+
   return (
-    <label class={css.inputWrap}>
-      <div class={css.label}>{label}</div>
+    <label class={styles.inputWrap}>
+      <div class={styles.label}>{props.label}</div>
       <Spacer height={3} />
       <Spacer height={3} />
-      <input class={css.input} {...{ name, type }} />
+      <input
+        class={styles.input}
+        name={props.name}
+        type={props.type}
+        required
+        value={state.value}
+        onInput={(e) => setState({ value: e.target.value })}
+        onChange={(e) => props.onChange?.(e.target.value)}
+      />
+      <Show when={state.value.length > 0}>
+        <a href="javascript:void(0)" onClick={() => setState({ value: '' })}>
+          <Icon key="x" />
+        </a>
+      </Show>
     </label>
   )
 }

@@ -1,9 +1,10 @@
 import { useRouter } from 'solid-app-router'
-import { createState, Show } from 'solid-js'
+import { createState } from 'solid-js'
 import { api } from '../../helpers/api'
 import Logo from '../../images/PVcase-logo.svg'
 import { css } from '../../styles/css'
 import { Button } from '../Button'
+import { Grid } from '../Grid'
 import { Input } from '../Input'
 import { Spacer } from '../Spacer'
 
@@ -23,7 +24,7 @@ const style = css.stylesheet({
     backgroundColor: '#262626',
   },
   loginBox: {
-    minWidth: 364,
+    width: 364,
   },
   loginSubText: {
     fontSize: 16,
@@ -36,7 +37,7 @@ export function PageLogin(): JSX.Element {
     inputs: { username: '', password: '' },
     status: undefined as undefined | 'success' | 'failed' | 'loading',
   })
-  const { router } = useRouter()
+  const router = useRouter()
 
   async function handleLogin(): Promise<void> {
     setState({ status: 'loading' })
@@ -47,23 +48,25 @@ export function PageLogin(): JSX.Element {
     }
     if ('success' in response && response.success) {
       setState({ status: 'success' })
-      return router.push('/dashboard')
+      router.push('/dashboard')
+      return
     }
     setState({ status: 'failed' })
   }
 
   return (
-    <div class={css.join(style.loginWrap, css.flex.centerCenter)}>
-      <div class={css.join(style.loginBox, style.roundBox, css.flex.vertical, css.flex.center)}>
-        <img src={Logo} alt="PVcase logo" />
-        <Spacer height={24} />
-        <h1>Log in</h1>
-        <Spacer height={14} />
-        <p class={style.loginSubText}>Enter your details below</p>
-        <Spacer height={53} />
+    <Grid class={css.join(style.loginWrap)} justifyContent="center" alignContent="center">
+      <div class={css.join(style.loginBox, style.roundBox)}>
+        <Grid justifyItems="center">
+          <img src={Logo} alt="PVcase logo" />
+          <Spacer height={24} />
+          <h1>Log in</h1>
+          <Spacer height={14} />
+          <p class={style.loginSubText}>Enter your details below</p>
+          <Spacer height={53} />
+        </Grid>
 
         <form
-          class={css.join(css.flex.selfStretch)}
           onSubmit={(e) => {
             e.preventDefault()
             void handleLogin()
@@ -85,6 +88,6 @@ export function PageLogin(): JSX.Element {
           <Button text="Log in" type="submit" />
         </form>
       </div>
-    </div>
+    </Grid>
   )
 }

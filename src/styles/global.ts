@@ -3,7 +3,9 @@
  */
 
 // eslint-disable-next-line no-restricted-imports
-import { normalize, setupPage } from 'csstips'
+// TODO - fix, when new snowpack is released
+import { normalize } from 'csstips/lib/normalize'
+import { setupPage } from 'csstips/lib/page'
 import { css } from './css'
 
 export function addGlobalStyles(appContainerSelector: string): void {

@@ -3,26 +3,11 @@
  */
 /* eslint-disable no-restricted-imports */
 
-import * as flex from 'csstips/lib/flex'
 import * as typestyle from 'typestyle'
 import type { StyleGuide } from './styleguide'
 
-type AllowedDefaultCSSProperties =
-  | 'margin'
-  | 'display'
-  | 'minWidth'
-  | 'padding'
-  | 'lineHeight'
-  | 'appearance'
-  | 'height'
-  | 'width'
-  | 'borderRadius'
-  | 'borderStyle'
-  | 'borderWidth'
-  | 'cursor'
-  | 'fill'
-  | 'outline'
-  | 'boxShadow'
+// disallow shorthand rules for better typechecking
+type DisallowedCSSProperties = 'border' | 'background'
 
 type OverriddenCSSProperties = {
   readonly color?: StyleGuide['colors']
@@ -33,7 +18,12 @@ type OverriddenCSSProperties = {
   readonly fontWeight?: StyleGuide['fontWeight']
 }
 
-export type StrictCSSProperties = { readonly [K in AllowedDefaultCSSProperties]?: typestyle.types.CSSProperties[K] } &
+export type StrictCSSProperties = {
+  readonly [K in Exclude<
+    keyof typestyle.types.CSSProperties,
+    DisallowedCSSProperties
+  >]?: typestyle.types.CSSProperties[K]
+} &
   OverriddenCSSProperties
 
 type StrictNestedCSSProperties = StrictCSSProperties & {
@@ -45,11 +35,13 @@ type StrictNestedCSSProperties = StrictCSSProperties & {
 
 // more strict types and auto convert styles to class name
 function join(
-  ...values: ReadonlyArray<string | Record<string, boolean> | StrictCSSProperties | typestyle.types.CSSProperties>
+  ...values: ReadonlyArray<
+    undefined | string | Record<string, boolean> | StrictCSSProperties | typestyle.types.CSSProperties
+  >
 ): string {
   return typestyle.classes(
     ...values.map((value) => {
-      if (typeof value === 'string') return value
+      if (typeof value === 'string' || typeof value === 'undefined') return value
       if (Object.values(value).every((v) => typeof v === 'boolean')) return value
       return typestyle.style(value)
     })
@@ -69,5 +61,4 @@ export const css = {
   rule,
   stylesheet,
   raw: typestyle.cssRaw,
-  flex,
 }

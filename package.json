@@ -8,8 +8,8 @@
   "dependencies": {
     "csstips": "^1.2.0",
     "csx": "^10.0.1",
-    "solid-app-router": "0.0.11",
-    "solid-js": "^0.21.4",
+    "solid-app-router": "0.0.13",
+    "solid-js": "^0.21.5",
     "typestyle": "^2.1.0"
   },
   "devDependencies": {
@@ -17,9 +17,9 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-typescript": "^7.12.1",
     "@snowpack/plugin-babel": "^2.1.4",
-    "@types/snowpack-env": "^2.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.6.0",
-    "@typescript-eslint/parser": "^4.6.0",
+    "@types/snowpack-env": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
     "babel-preset-solid": "0.21.3",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",

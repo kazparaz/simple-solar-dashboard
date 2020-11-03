@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-imports */
 
 import * as typestyle from 'typestyle'
-import type { StyleGuide } from './styleguide'
+import { mixins, StyleGuide } from './styleguide'
 
 // disallow shorthand rules for better typechecking
 type DisallowedCSSProperties = 'border' | 'background'
@@ -34,11 +34,7 @@ type StrictNestedCSSProperties = StrictCSSProperties & {
 // ==============================
 
 // more strict types and auto convert styles to class name
-function join(
-  ...values: ReadonlyArray<
-    undefined | string | Record<string, boolean> | StrictCSSProperties | typestyle.types.CSSProperties
-  >
-): string {
+function join(...values: ReadonlyArray<undefined | string | Record<string, boolean> | StrictCSSProperties>): string {
   return typestyle.classes(
     ...values.map((value) => {
       if (typeof value === 'string' || typeof value === 'undefined') return value
@@ -60,5 +56,6 @@ export const css = {
   join,
   rule,
   stylesheet,
+  mixins,
   raw: typestyle.cssRaw,
 }

@@ -9,7 +9,7 @@ import { setupPage } from 'csstips/lib/page'
 import { css } from './css'
 
 export function addGlobalStyles(appContainerSelector: string): void {
-  // This must be the first CSS rule, because @import only works if its at the top of the file
+  // @import must be at the top of the stylesheet
   css.raw(`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap')`)
 
   // Normalize browsers styles
@@ -44,5 +44,9 @@ export function addGlobalStyles(appContainerSelector: string): void {
 
   css.rule('h3', {
     fontSize: 16,
+  })
+
+  css.rule('a', {
+    color: '#24665D',
   })
 }

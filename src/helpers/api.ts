@@ -13,8 +13,7 @@ export const api = {
   async login(args: { readonly username: string; readonly password: string }): Promise<ApiResponse<boolean>> {
     return new Promise<ApiResponse<boolean>>((resolve) => {
       const isValid = args.username === validLogins.password && args.password === validLogins.password
-      const randomDelayMs = Math.max(Math.random(), 0.2) * 10 * 500
-      console.log(randomDelayMs)
+      const randomDelayMs = Math.random() * 2000
       setTimeout(() => resolve({ success: isValid }), randomDelayMs)
     })
   },

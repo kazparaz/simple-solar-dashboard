@@ -28,15 +28,8 @@ export type StyleGuide = {
     | '#FAFAFA'
     | '#FFFFFF'
     | 'currentColor'
+    | 'inherit'
   readonly fontSize: 24 | 18 | 16 | 14 | 12 | 10
   readonly fontFamily: 'Inter, system-ui, sans-serif'
   readonly fontWeight: 500 | 700
-}
-
-export const mixins = {
-  boxShadow: {
-    subtle: {
-      boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.45)',
-    },
-  },
 }

@@ -19,6 +19,8 @@ export function mapObject<
   mapFn: (entry: readonly [keyof T, T[keyof T]], index: number) => Mapped
 ): Readonly<Record<Mapped[0], Mapped[1]>> {
   return Object.fromEntries(
-    Object.entries(object).map((entry, index) => mapFn(entry as readonly [keyof T, T[keyof T]], index))
+    Object.entries(object).map((entry, index) =>
+      mapFn(entry as readonly [keyof T, T[keyof T]], index)
+    )
   ) as Readonly<Record<Mapped[0], Mapped[1]>>
 }

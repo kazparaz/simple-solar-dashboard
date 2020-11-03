@@ -27,3 +27,4 @@ Your app is ready to be deployed!
 - component helper with added "css", "class" props
 - JSX eslint
 - Flex to component or stylesheet
+- Optimize (https://www.snowpack.dev/#optimized-builds)

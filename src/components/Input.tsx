@@ -13,10 +13,22 @@ export function Input(props: {
   readonly onChange?: (value: string) => void
   readonly onInput?: (value: string) => void
 }): JSX.Element {
-  const [state, setState] = createState({
-    value: '',
-    get status() {
-      return props.error ? 'error' : props.disabled ? 'disabled' : 'default'
+  const inputClass = css.style({
+    width: '100%',
+    height: 33,
+    padding: '0 26px 0 10px',
+    fontSize: 12,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#C4C4C4',
+    borderRadius: 3,
+    outline: 'none',
+    $nest: {
+      '&&&:focus': {
+        borderColor: '#1E8072',
+      },
+      '&&&.is-error': { borderColor: '#D11C32' },
+      '&&&.is-disabled': { borderColor: '#C4C4C4' },
     },
   })
 
@@ -25,40 +37,33 @@ export function Input(props: {
       display: 'block',
       width: '100%',
     },
-    label: {
-      cursor: 'pointer',
-    },
+    label: { cursor: 'pointer' },
     inputWrap: {
       position: 'relative',
-    },
-    input: {
-      width: '100%',
-      height: 33,
-      padding: '0 26px 0 10px',
-      borderWidth: 1,
-      borderStyle: 'solid',
-      borderRadius: 3,
-      borderColor: '#C4C4C4',
-      fontSize: 12,
+      // clear button removes hover from input, so we define it here
       $nest: {
-        '&:hover:not(:disabled)': {
+        [`& .${inputClass}:hover`]: {
           borderColor: '#878787',
         },
-        '&:focus': {
-          outline: 'none',
-          borderColor: '#1E8072',
-        },
-        '&&.is-error': { borderColor: '#D11C32' },
       },
     },
     clear: {
       position: 'absolute',
-      right: 12,
-      top: 8,
+      right: 6,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      padding: 6,
     },
     errorMsg: {
       fontSize: 10,
       color: '#D11C32',
+    },
+  })
+
+  const [state, setState] = createState({
+    value: '',
+    get status() {
+      return props.error ? 'error' : props.disabled ? 'disabled' : 'default'
     },
   })
 
@@ -69,7 +74,7 @@ export function Input(props: {
 
       <div class={styles.inputWrap}>
         <input
-          class={css.join(styles.input, `is-${state.status}`)}
+          class={css.join(inputClass, `is-${state.status}`)}
           name={props.name}
           type={props.type}
           required={props.required}

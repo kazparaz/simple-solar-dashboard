@@ -1,12 +1,12 @@
 import { useRouter } from 'solid-app-router'
 import { createState } from 'solid-js'
-import { api } from '../../helpers/api'
-import Logo from '../../images/PVcase-logo.svg'
-import { css } from '../../styles/css'
-import { Button } from '../Button'
-import { Grid } from '../Grid'
-import { Input } from '../Input'
-import { Spacer } from '../Spacer'
+import { Button } from '../components/Button'
+import { Grid } from '../components/Grid'
+import { Input } from '../components/Input'
+import { Spacer } from '../components/Spacer'
+import { api } from '../helpers/api'
+import Logo from '../images/PVcase-logo.svg'
+import { css } from '../styles/css'
 
 export function PageLogin(): JSX.Element {
   const [state, setState] = createState({
@@ -54,7 +54,11 @@ export function PageLogin(): JSX.Element {
   }
 
   return (
-    <Grid class={css.join(style.loginWrap)} justifyContent="center" alignContent="center">
+    <div
+      class={css.join(
+        style.loginWrap,
+        css.mixins.grid({ justifyContent: 'center', alignContent: 'center' })
+      )}>
       <div class={css.join(style.loginBox, style.roundBox)}>
         <Grid justifyItems="center">
           <img src={Logo} alt="PVcase logo" />
@@ -91,6 +95,6 @@ export function PageLogin(): JSX.Element {
           <Button text="Log in" type="submit" disabled={state.status === 'loading'} />
         </form>
       </div>
-    </Grid>
+    </div>
   )
 }

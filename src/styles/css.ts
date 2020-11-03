@@ -4,7 +4,8 @@
 /* eslint-disable no-restricted-imports */
 
 import * as typestyle from 'typestyle'
-import { mixins, StyleGuide } from './styleguide'
+import * as mixins from './mixins'
+import type { StyleGuide } from './styleguide'
 
 // disallow shorthand rules for better typechecking
 type DisallowedCSSProperties = 'border' | 'background'
@@ -27,14 +28,18 @@ export type StrictCSSProperties = {
   OverriddenCSSProperties
 
 type StrictNestedCSSProperties = StrictCSSProperties & {
-  readonly $nest?: Readonly<Record<keyof typestyle.types.NestedCSSSelectors, StrictNestedCSSProperties>>
+  readonly $nest?: Readonly<
+    Record<keyof typestyle.types.NestedCSSSelectors, StrictNestedCSSProperties>
+  >
   readonly $debugName?: string
 }
 
 // ==============================
 
 // more strict types and auto convert styles to class name
-function join(...values: ReadonlyArray<undefined | string | Record<string, boolean> | StrictCSSProperties>): string {
+function join(
+  ...values: ReadonlyArray<undefined | string | Record<string, boolean> | StrictCSSProperties>
+): string {
   return typestyle.classes(
     ...values.map((value) => {
       if (typeof value === 'string' || typeof value === 'undefined') return value
@@ -48,8 +53,14 @@ function rule(selector: string, ...objects: readonly StrictNestedCSSProperties[]
   return typestyle.cssRule(selector, ...objects)
 }
 
-function stylesheet<T extends string>(classes: Record<T, StrictNestedCSSProperties>): Record<T, string> {
+function stylesheet<T extends string>(
+  classes: Record<T, StrictNestedCSSProperties>
+): Record<T, string> {
   return typestyle.stylesheet(classes)
+}
+
+function style(...objects: readonly StrictNestedCSSProperties[]): string {
+  return typestyle.style(...objects)
 }
 
 export const css = {
@@ -57,5 +68,6 @@ export const css = {
   rule,
   stylesheet,
   mixins,
+  style,
   raw: typestyle.cssRaw,
 }

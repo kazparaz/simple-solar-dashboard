@@ -1,5 +1,6 @@
 import { css, StrictCSSProperties } from '../styles/css'
 
+// TODO remove if not used
 export function Grid(props: {
   readonly class?: string
   readonly columns?: number

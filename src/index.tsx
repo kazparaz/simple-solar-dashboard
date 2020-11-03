@@ -5,9 +5,9 @@
 import { Route, Router } from 'solid-app-router'
 import type { Component } from 'solid-js'
 import { render } from 'solid-js/dom'
-import { PageDashboard } from './components/pages/PageDashboard'
-import { PageLogin } from './components/pages/PageLogin'
 import { assertIsDefined, ensureType } from './helpers'
+import { PageDashboardSummary } from './routes/PageDashboardSummary'
+import { PageLogin } from './routes/PageLogin'
 import { addGlobalStyles } from './styles/global'
 
 const appContainerSelector = '#app'
@@ -15,10 +15,11 @@ const appContainerSelector = '#app'
 export type Routes = keyof typeof routes
 
 const routes = ensureType<Record<string, Component<unknown>>>()({
-  '*': () => <div>404 Page not found</div>,
-  '/': () => <div>Homepage</div>,
+  '*': () => <h1>404: Page not found</h1>,
   '/login': PageLogin,
-  '/dashboard': PageDashboard,
+  '/dashboard': PageDashboardSummary,
+  '/dashboard/summary': PageDashboardSummary,
+  '/dashboard/plants-electrical': () => 'Plants & electrical',
 })
 
 function App(): JSX.Element {

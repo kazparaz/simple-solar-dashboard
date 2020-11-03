@@ -47,6 +47,13 @@ export function addGlobalStyles(appContainerSelector: string): void {
   })
 
   css.rule('a', {
-    color: '#24665D',
+    color: 'inherit',
+    textDecoration: 'none',
+
+    $nest: {
+      '&:hover': {
+        opacity: 0.8,
+      },
+    },
   })
 }

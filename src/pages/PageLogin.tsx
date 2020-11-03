@@ -3,6 +3,7 @@ import { createState } from 'solid-js'
 import { Button } from '../components/Button'
 import { Grid } from '../components/Grid'
 import { Input } from '../components/Input'
+import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { api } from '../helpers/api'
 import Logo from '../images/PVcase-logo.svg'
@@ -13,7 +14,7 @@ export function PageLogin(): JSX.Element {
     inputs: { username: '', password: '' },
     status: undefined as undefined | 'success' | 'fail' | 'loading',
   })
-  const style = css.stylesheet({
+  const styles = css.stylesheet({
     roundBox: {
       padding: 32,
       backgroundColor: '#FFFFFF',
@@ -24,6 +25,11 @@ export function PageLogin(): JSX.Element {
       boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.4)',
     },
     loginWrap: {
+      ...css.mixins.grid({
+        justifyContent: 'center',
+        alignContent: 'center',
+        justifyItems: 'center',
+      }),
       width: '100%',
       height: '100%',
       backgroundColor: '#262626',
@@ -34,6 +40,10 @@ export function PageLogin(): JSX.Element {
     loginSubText: {
       fontSize: 16,
       color: '#C4C4C4',
+    },
+    footer: {
+      color: '#FFFFFF',
+      fontSize: 16,
     },
   })
 
@@ -54,18 +64,14 @@ export function PageLogin(): JSX.Element {
   }
 
   return (
-    <div
-      class={css.join(
-        style.loginWrap,
-        css.mixins.grid({ justifyContent: 'center', alignContent: 'center' })
-      )}>
-      <div class={css.join(style.loginBox, style.roundBox)}>
+    <div class={styles.loginWrap}>
+      <div class={css.join(styles.loginBox, styles.roundBox)}>
         <Grid justifyItems="center">
           <img src={Logo} alt="PVcase logo" />
           <Spacer height={24} />
           <h1>Log in</h1>
           <Spacer height={14} />
-          <p class={style.loginSubText}>Enter your details below</p>
+          <p class={styles.loginSubText}>Enter your details below</p>
           <Spacer height={53} />
         </Grid>
 
@@ -95,6 +101,14 @@ export function PageLogin(): JSX.Element {
           <Button text="Log in" type="submit" disabled={state.status === 'loading'} />
         </form>
       </div>
+
+      <Spacer height={40} />
+      <p class={styles.footer}>
+        Don’t have an account?{' '}
+        <Link class={styles.footer} underline>
+          Sign Up
+        </Link>
+      </p>
     </div>
   )
 }

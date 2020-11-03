@@ -1,4 +1,4 @@
-import { TemplateDashboard } from './TemplateDashboard'
+import { TemplateDashboard } from './templates/TemplateDashboard'
 
 export function PageDashboardSummary(): JSX.Element {
   return (

@@ -1,8 +1,9 @@
-import { Icon } from '../components/Icon'
-import { Spacer } from '../components/Spacer'
-import { css } from '../styles/css'
+import { Icon } from '../../components/Icon'
+import { Link } from '../../components/Link'
+import { Spacer } from '../../components/Spacer'
+import { css } from '../../styles/css'
 
-function DashboardHeader(): JSX.Element {
+export function DashboardHeader(): JSX.Element {
   const styles = css.stylesheet({
     header: {
       height: 56,
@@ -47,33 +48,22 @@ function DashboardHeader(): JSX.Element {
   return (
     <header class={styles.header}>
       <div>
-        <a class={styles.left} href="javascript:void(0)">
+        <Link class={styles.left}>
           <Icon symbol="home" />
           <Spacer width={10} />
           <span>Back to projects</span>
-        </a>
+        </Link>
       </div>
       <div>
         <p class={styles.middle}>Kaunas park</p>
       </div>
       <div>
-        <a class={styles.right} href="javascript:void(0)">
+        <Link class={styles.right}>
           <span>Tester Testman</span>
           <Spacer width={16} />
           <span class={styles.avatar}>A</span>
-        </a>
+        </Link>
       </div>
     </header>
-  )
-}
-
-export function TemplateDashboard(props: { readonly children: JSX.Element }): JSX.Element {
-  return (
-    <div>
-      <DashboardHeader />
-      <main>{props.children}</main>
-      <footer>Footer</footer>
-      <aside>Sidebar</aside>
-    </div>
   )
 }

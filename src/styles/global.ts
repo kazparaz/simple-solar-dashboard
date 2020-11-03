@@ -24,27 +24,16 @@ export function addGlobalStyles(appContainerSelector: string): void {
     color: '#000000',
   })
 
-  // make block elements not to have any spaces, for easier styling
+  // make block elements not to have any spaces, for easier layout
   css.rule('div, header, main, footer, ul, ol, li, nav, section, h1, h2, h3, h4, h5, h6, p', {
     margin: 0,
     padding: 0,
   })
 
-  css.rule('h1, h2, h3, h4, h5, h6', {
-    fontSize: 12,
-  })
-
-  css.rule('h1', {
-    fontSize: 24,
-  })
-
-  css.rule('h2', {
-    fontSize: 18,
-  })
-
-  css.rule('h3', {
-    fontSize: 16,
-  })
+  css.rule('h1', { fontSize: 24 })
+  css.rule('h2', { fontSize: 18 })
+  css.rule('h3', { fontSize: 16 })
+  css.rule('h4, h5, h6', { fontSize: 12 })
 
   css.rule('a', {
     color: 'inherit',

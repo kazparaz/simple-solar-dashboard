@@ -1,6 +1,7 @@
 import { createState } from 'solid-js'
 import { css } from '../styles/css'
 import { Icon } from './Icon'
+import { Link } from './Link'
 import { Spacer } from './Spacer'
 
 export function Input(props: {
@@ -88,9 +89,9 @@ export function Input(props: {
         />
 
         {!!state.value && state.status !== 'disabled' && (
-          <a class={styles.clear} href="javascript:void(0)" onClick={() => setState('value', '')}>
+          <Link class={styles.clear} onClick={() => setState('value', '')}>
             <Icon symbol="x" color="#878787" />
-          </a>
+          </Link>
         )}
       </div>
 

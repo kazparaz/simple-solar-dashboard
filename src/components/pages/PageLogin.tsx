@@ -2,7 +2,7 @@ import { useRouter } from 'solid-app-router'
 import { createState, Show } from 'solid-js'
 import { api } from '../../helpers/api'
 import Logo from '../../images/PVcase-logo.svg'
-import { sg, css } from '../../styles'
+import { css } from '../../styles/css'
 import { Button } from '../Button'
 import { Input } from '../Input'
 import { Spacer } from '../Spacer'
@@ -10,22 +10,24 @@ import { Spacer } from '../Spacer'
 const style = css.stylesheet({
   roundBox: {
     padding: 32,
-    background: sg.colors['#FFFFFF'],
+    backgroundColor: '#FFFFFF',
     borderRadius: 8,
-    border: css.border({ width: 1, style: 'solid', color: sg.colors['#0B382B'] }),
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#0B382B',
     boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.4)',
   },
   loginWrap: {
     width: '100%',
     height: '100%',
-    background: sg.colors['#262626'],
+    backgroundColor: '#262626',
   },
   loginBox: {
     minWidth: 364,
   },
   loginSubText: {
-    ...sg.fontSize['16'],
-    color: sg.colors['#C4C4C4'],
+    fontSize: 16,
+    color: '#C4C4C4',
   },
 })
 
@@ -51,8 +53,8 @@ export function PageLogin(): JSX.Element {
   }
 
   return (
-    <div class={css.class(style.loginWrap, css.flex.centerCenter)}>
-      <div class={css.class(style.loginBox, style.roundBox, css.flex.vertical, css.flex.center)}>
+    <div class={css.join(style.loginWrap, css.flex.centerCenter)}>
+      <div class={css.join(style.loginBox, style.roundBox, css.flex.vertical, css.flex.center)}>
         <img src={Logo} alt="PVcase logo" />
         <Spacer height={24} />
         <h1>Log in</h1>
@@ -61,7 +63,7 @@ export function PageLogin(): JSX.Element {
         <Spacer height={53} />
 
         <form
-          class={css.class(css.flex.selfStretch)}
+          class={css.join(css.flex.selfStretch)}
           onSubmit={(e) => {
             e.preventDefault()
             void handleLogin()

@@ -1,17 +1,18 @@
-import { stylesheet } from 'typestyle'
-import { sg, css } from '../styles'
+import { css } from '../styles/css'
 
-const styles = stylesheet({
+const styles = css.stylesheet({
   button: {
     appearance: 'none',
     height: 40,
     width: '100%',
     padding: '0 10px',
-    background: sg.colors['#20554E'],
-    color: sg.colors['#FFFFFF'],
+    backgroundColor: '#20554E',
+    color: '#FFFFFF',
     borderRadius: 4,
-    border: css.border({ width: 1, style: 'solid', color: sg.colors['#0B382B'] }),
-    ...sg.fontSize['14'],
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#0B382B',
+    fontSize: 14,
     cursor: 'pointer',
   },
 })

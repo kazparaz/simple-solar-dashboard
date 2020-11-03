@@ -1,5 +1,5 @@
 import { createState, Show } from 'solid-js'
-import { sg, css } from '../styles'
+import { css } from '../styles/css'
 import { Icon } from './Icon'
 import { Spacer } from './Spacer'
 
@@ -15,16 +15,18 @@ const styles = css.stylesheet({
     width: '100%',
     height: 33,
     padding: '0 10px',
-    border: css.border({ width: 1, style: 'solid', color: sg.colors['#C4C4C4'] }),
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#C4C4C4',
     borderRadius: 3,
-    ...sg.fontSize['12'],
+    fontSize: 12,
     $nest: {
       '&:hover': {
-        borderColor: sg.colors['#878787'],
+        borderColor: '#878787',
       },
       '&:focus': {
         outline: 'none',
-        borderColor: sg.colors['#1E8072'],
+        borderColor: '#1E8072',
       },
     },
   },

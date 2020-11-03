@@ -20,6 +20,7 @@ export function addGlobalStyles(appContainerSelector: string): void {
   cssRule('body', {
     ...fontFamily.interNormal,
     ...fontSize['12'],
+    lineHeight: 1.2,
     color: colors['#000000'],
   })
 

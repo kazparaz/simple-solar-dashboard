@@ -43,7 +43,6 @@ export function Input(props: {
     <label class={styles.inputWrap}>
       <div class={styles.label}>{props.label}</div>
       <Spacer height={3} />
-      <Spacer height={3} />
       <input
         class={styles.input}
         name={props.name}

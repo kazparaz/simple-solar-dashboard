@@ -1,7 +1,7 @@
 import { css } from '../styles'
 
 export function Spacer({ height }: { readonly height: number }): JSX.Element {
-  const styles = css.stylesheet({ spacer: { height } })
+  const styles = css.stylesheet({ spacer: { height, width: '100%' } })
 
   return <div class={styles.spacer} />
 }

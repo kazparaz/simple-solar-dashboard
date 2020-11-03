@@ -54,22 +54,14 @@ export function PageLogin(): JSX.Element {
     <div class={css.class(style.loginWrap, css.flex.centerCenter)}>
       <div class={css.class(style.loginBox, style.roundBox, css.flex.vertical, css.flex.center)}>
         <img src={Logo} alt="PVcase logo" />
-        <Spacer height={28} />
+        <Spacer height={24} />
         <h1>Log in</h1>
         <Spacer height={14} />
         <p class={style.loginSubText}>Enter your details below</p>
         <Spacer height={53} />
 
-        <Show when={state.status === 'failed'}>
-          <h4 class={css.class({ color: '#D11C32' })}>Login failed</h4>
-          <Spacer height={10} />
-        </Show>
-        <Show when={state.status === 'loading'}>
-          <h4>Loading...</h4>
-          <Spacer height={10} />
-        </Show>
-
         <form
+          class={css.class(css.flex.selfStretch)}
           onSubmit={(e) => {
             e.preventDefault()
             void handleLogin()
@@ -87,7 +79,7 @@ export function PageLogin(): JSX.Element {
             required
             onChange={(v) => setState({ inputs: { ...state.inputs, password: v } })}
           />
-          <Spacer height={24} />
+          <Spacer height={40} />
           <Button text="Log in" type="submit" />
         </form>
       </div>

@@ -1,7 +1,6 @@
 /**
- * Defines shared styleguide
+ * Defines app styleguide
  */
-import { px } from 'csx'
 import type { CSSProperties } from 'typestyle/lib/types'
 import { ensureType } from '../helpers'
 
@@ -43,9 +42,9 @@ export const fontFamily = ensureType<Record<string, CSSProperties>>()({
 } as const)
 
 export const fontSize = ensureType<Record<string, CSSProperties>>()({
-  24: { fontSize: 24, lineHeight: px(29) },
-  18: { fontSize: 18, lineHeight: px(22) },
-  16: { fontSize: 16, lineHeight: px(19) },
-  14: { fontSize: 14, lineHeight: px(16) },
-  12: { fontSize: 12, lineHeight: px(15) },
+  24: { fontSize: 24 },
+  18: { fontSize: 18 },
+  16: { fontSize: 16 },
+  14: { fontSize: 14 },
+  12: { fontSize: 12 },
 } as const)

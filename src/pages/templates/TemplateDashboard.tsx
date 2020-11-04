@@ -1,3 +1,4 @@
+import { Spacer } from '../../components/Spacer'
 import { useCurrentRoute } from '../../routes'
 import { css } from '../../styles/css'
 import { DashboardHeader } from './DashboardHeader'
@@ -21,8 +22,13 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
     },
     main: {
       gridArea: 'm',
+      padding: '64px 45px 45px',
+      maxWidth: 800,
+      width: '100%',
+      margin: '0 auto',
     },
   })
+
   const route = useCurrentRoute()
 
   return (
@@ -31,7 +37,7 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
       <DashboardSidebar class={styles.sidebar} />
       <main class={styles.main}>
         <h1>{route()?.pageTitle}</h1>
-
+        <Spacer height={56} />
         <div>{props.children}</div>
       </main>
     </div>

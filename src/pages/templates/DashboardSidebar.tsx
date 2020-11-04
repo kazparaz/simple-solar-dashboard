@@ -1,28 +1,27 @@
-import { For } from 'solid-js'
 import { Link } from '../../components/Link'
-import { routes, PageRoute, useRouter } from '../../routes'
+import { routes, RoutePath, useCurrentRoute } from '../../routes'
 import { css } from '../../styles/css'
 
 const navigation: ReadonlyArray<{
   readonly groupName?: string
-  readonly items: ReadonlyArray<{ readonly route: PageRoute; readonly meta?: JSX.Element }>
+  readonly items: ReadonlyArray<{ readonly path: RoutePath; readonly meta?: JSX.Element }>
 }> = [
   {
-    items: [{ route: '/dashboard/summary' }],
+    items: [{ path: '/dashboard/summary' }],
   },
   {
     groupName: 'Project parameters',
-    items: [{ route: '/dashboard/project/meteo' }],
+    items: [{ path: '/dashboard/project/meteo' }],
   },
   {
     groupName: 'Simulation parameters',
-    items: [{ route: '/dashboard/simulation/plants-electrical' }],
+    items: [{ path: '/dashboard/simulation/plants-electrical' }],
   },
   {
     groupName: 'Calculations',
     items: [
-      { route: '/dashboard/calculations/ongoing' },
-      { route: '/dashboard/calculations/calculated', meta: '22' },
+      { path: '/dashboard/calculations/ongoing' },
+      { path: '/dashboard/calculations/calculated', meta: '22' },
     ],
   },
 ]
@@ -51,23 +50,23 @@ export function DashboardSidebar(props: { readonly class: string }): JSX.Element
       padding: '0 24px 7px 24px',
     },
   })
-  const router = useRouter()
+  const route = useCurrentRoute()
 
   return (
-    <aside class={css.join(styles.sidebar, props.class)}>
-      <For each={navigation}>
-        {({ groupName, items }) => (
-          <section class={styles.group}>
-            {groupName && <h4 class={styles.groupName}>{groupName}</h4>}
-            <For each={items}>
-              {(item) => (
-                <SidebarItem {...item} isSelected={router.current?.route === item.route} />
-              )}
-            </For>
-          </section>
-        )}
-      </For>
-    </aside>
+    <nav class={css.join(styles.sidebar, props.class)}>
+      {navigation.map(({ groupName, items }) => (
+        <section class={styles.group}>
+          {groupName && <h4 class={styles.groupName}>{groupName}</h4>}
+          {items.map((item) => (
+            <SidebarItem
+              path={item.path}
+              meta={item.meta}
+              isSelected={route()?.path === item.path}
+            />
+          ))}
+        </section>
+      ))}
+    </nav>
   )
 }
 
@@ -92,12 +91,12 @@ function SidebarItem(
       color: '#878787',
     },
   })
-  const { pageTitle } = routes[props.route]
+  const { pageTitle } = routes[props.path]
 
   return (
     <Link
       class={css.join(styles.item, { [styles.isSelected]: props.isSelected })}
-      route={props.route}>
+      href={props.path}>
       {pageTitle}
       <span class={styles.meta}>{props.meta}</span>
     </Link>

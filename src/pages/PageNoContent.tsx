@@ -2,7 +2,7 @@ import { Spacer } from '../components/Spacer'
 import { getRandomInt } from '../helpers/utils'
 import { TemplateDashboard } from './templates/TemplateDashboard'
 
-export function PageDashboardSummary(): JSX.Element {
+export function PageNoContent(): JSX.Element {
   return (
     <TemplateDashboard>
       <div>

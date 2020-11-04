@@ -1,3 +1,4 @@
+import { useCurrentRoute } from '../../routes'
 import { css } from '../../styles/css'
 import { DashboardHeader } from './DashboardHeader'
 import { DashboardSidebar } from './DashboardSidebar'
@@ -22,12 +23,17 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
       gridArea: 'm',
     },
   })
+  const route = useCurrentRoute()
 
   return (
     <div class={styles.dashboard}>
       <DashboardHeader class={styles.header} />
       <DashboardSidebar class={styles.sidebar} />
-      <main class={styles.main}>{props.children}</main>
+      <main class={styles.main}>
+        <h1>{route()?.pageTitle}</h1>
+
+        <div>{props.children}</div>
+      </main>
     </div>
   )
 }

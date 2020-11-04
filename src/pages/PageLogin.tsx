@@ -55,7 +55,7 @@ export function PageLogin(): JSX.Element {
     const response = await api.login(state.inputs)
     if ('success' in response && response.success) {
       setState('status', 'success')
-      router.push('/dashboard/summary')
+      router('/dashboard/summary')
       return
     }
     if ('error' in response) {

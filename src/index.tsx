@@ -6,7 +6,7 @@ import { Route, Router } from 'solid-app-router'
 import { createEffect } from 'solid-js'
 import { render } from 'solid-js/dom'
 import { assertIsDefined, entries } from './helpers/utils'
-import { routes, useRouter } from './routes'
+import { routes, useCurrentRoute } from './routes'
 import { addGlobalStyles } from './styles/global'
 
 const appContainerSelector = '#app'
@@ -31,9 +31,9 @@ function renderApp(): void {
 function App(): JSX.Element {
   addGlobalStyles(appContainerSelector)
   createEffect(() => {
-    const { current } = useRouter()
+    const route = useCurrentRoute()()
     // eslint-disable-next-line functional/immutable-data
-    document.title = current ? `${current.pageTitle} | Solar Dashboards` : `Solar Dashboards`
+    document.title = route ? `${route.pageTitle} | Solar Dashboard` : `Solar Dashboard`
   })
   return <Route />
 }

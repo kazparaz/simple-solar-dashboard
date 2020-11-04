@@ -46,7 +46,7 @@ export function DashboardHeader(props: { readonly class: string }): JSX.Element 
   return (
     <header class={css.join(styles.header, props.class)}>
       <div>
-        <Link class={styles.left} route="/login">
+        <Link class={styles.left} href="/login">
           <Icon symbol="home" />
           <Spacer width={10} />
           <span>Back to projects</span>

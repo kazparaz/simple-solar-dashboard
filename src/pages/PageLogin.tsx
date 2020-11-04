@@ -1,12 +1,11 @@
-import { useRouter } from 'solid-app-router'
 import { createState } from 'solid-js'
 import { Button } from '../components/Button'
-import { Grid } from '../components/Grid'
 import { Input } from '../components/Input'
 import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { api } from '../helpers/api'
 import Logo from '../images/PVcase-logo.svg'
+import { useRouter } from '../routes'
 import { css } from '../styles/css'
 
 export function PageLogin(): JSX.Element {
@@ -25,17 +24,19 @@ export function PageLogin(): JSX.Element {
       boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.4)',
     },
     loginWrap: {
-      ...css.mixins.grid({
-        justifyContent: 'center',
-        alignContent: 'center',
-        justifyItems: 'center',
-      }),
+      display: 'grid',
+      justifyContent: 'center',
+      alignContent: 'center',
+      justifyItems: 'center',
       width: '100%',
       height: '100%',
       backgroundColor: '#262626',
     },
     loginBox: {
       width: 364,
+    },
+    loginTop: {
+      textAlign: 'center',
     },
     loginSubText: {
       fontSize: 16,
@@ -54,7 +55,7 @@ export function PageLogin(): JSX.Element {
     const response = await api.login(state.inputs)
     if ('success' in response && response.success) {
       setState('status', 'success')
-      router.push('/dashboard')
+      router.push('/dashboard/summary')
       return
     }
     if ('error' in response) {
@@ -66,14 +67,14 @@ export function PageLogin(): JSX.Element {
   return (
     <div class={styles.loginWrap}>
       <div class={css.join(styles.loginBox, styles.roundBox)}>
-        <Grid justifyItems="center">
+        <div class={styles.loginTop}>
           <img src={Logo} alt="PVcase logo" />
           <Spacer height={24} />
           <h1>Log in</h1>
           <Spacer height={14} />
           <p class={styles.loginSubText}>Enter your details below</p>
           <Spacer height={53} />
-        </Grid>
+        </div>
 
         <form
           onSubmit={(e) => {

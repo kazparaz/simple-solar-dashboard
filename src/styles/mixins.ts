@@ -13,30 +13,3 @@ export const layout = {
     justifyContent: 'center',
   },
 }
-
-// ==============================
-
-type GridParentCssProps = Pick<
-  StrictCSSProperties,
-  | 'alignContent'
-  | 'alignItems'
-  | 'gap'
-  | 'gridAutoFlow'
-  | 'gridTemplate'
-  | 'gridTemplateColumns'
-  | 'gridTemplateRows'
-  | 'justifyContent'
-  | 'justifyItems'
->
-
-export function grid(
-  props: {
-    readonly rows?: number
-    readonly columns?: number
-  } & Readonly<Partial<GridParentCssProps>>
-): StrictCSSProperties {
-  return {
-    display: 'grid',
-    ...props,
-  }
-}

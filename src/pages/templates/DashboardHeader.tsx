@@ -3,21 +3,19 @@ import { Link } from '../../components/Link'
 import { Spacer } from '../../components/Spacer'
 import { css } from '../../styles/css'
 
-export function DashboardHeader(): JSX.Element {
+export function DashboardHeader(props: { readonly class: string }): JSX.Element {
   const styles = css.stylesheet({
     header: {
-      height: 56,
       paddingLeft: 28,
       paddingRight: 24,
       backgroundColor: '#1F1F1F',
       color: '#FFFFFF',
       fontSize: 14,
       // tricky layout to get middle item always in the middle
-      ...css.mixins.grid({
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }),
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       $nest: { '& > *': css.mixins.layout.flexCenter },
     },
     left: {
@@ -46,9 +44,9 @@ export function DashboardHeader(): JSX.Element {
   })
 
   return (
-    <header class={styles.header}>
+    <header class={css.join(styles.header, props.class)}>
       <div>
-        <Link class={styles.left}>
+        <Link class={styles.left} route="/login">
           <Icon symbol="home" />
           <Spacer width={10} />
           <span>Back to projects</span>

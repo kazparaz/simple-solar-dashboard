@@ -1,5 +1,5 @@
 import { Link as RouterLink } from 'solid-app-router'
-import type { Routes } from '../routes'
+import type { PageRoute } from '../routes'
 import { css } from '../styles/css'
 
 export function Link(
@@ -7,7 +7,11 @@ export function Link(
     readonly children: JSX.Element
     readonly class?: string
     readonly underline?: boolean
-  } & ({ readonly href?: string } | { readonly route: Routes } | { readonly onClick: () => void })
+  } & (
+    | { readonly href?: string }
+    | { readonly route: PageRoute }
+    | { readonly onClick: () => void }
+  )
 ): JSX.Element {
   const styles = css.stylesheet({
     link: { textDecoration: props.underline ? 'underline' : 'none' },

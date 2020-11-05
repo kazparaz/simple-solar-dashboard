@@ -1,4 +1,4 @@
-import { css } from '../styles/css'
+import { cls } from '../styles/css'
 
 export function Spacer(props: {
   readonly grow?: true
@@ -7,7 +7,7 @@ export function Spacer(props: {
 }): JSX.Element {
   return (
     <div
-      class={css.join({
+      class={cls({
         height: props.height ? props.height : undefined,
         width: props.width ? props.width : undefined,
         flexGrow: props.grow ? 999 : undefined,

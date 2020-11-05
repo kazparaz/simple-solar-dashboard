@@ -4,7 +4,6 @@
 /* eslint-disable no-restricted-imports */
 
 import * as typestyle from 'typestyle'
-import { mixins } from './mixins'
 import type { StyleGuide } from './styleguide'
 
 // disallow shorthand rules for better typechecking
@@ -37,7 +36,7 @@ type StrictNestedCSSProperties = StrictCSSProperties & {
 // ==============================
 
 // more strict types and auto convert styles to class name
-function join(
+export function cls(
   ...values: ReadonlyArray<undefined | string | Record<string, boolean> | StrictCSSProperties>
 ): string {
   return typestyle.classes(
@@ -49,25 +48,20 @@ function join(
   )
 }
 
-function rule(selector: string, ...objects: readonly StrictNestedCSSProperties[]): void {
+export function rule(selector: string, ...objects: readonly StrictNestedCSSProperties[]): void {
   return typestyle.cssRule(selector, ...objects)
 }
 
-function stylesheet<T extends string>(
+export function createStyles<T extends string>(
   classes: Record<T, StrictNestedCSSProperties>
 ): Record<T, string> {
   return typestyle.stylesheet(classes)
 }
 
-function style(...objects: readonly StrictNestedCSSProperties[]): string {
-  return typestyle.style(...objects)
-}
+// export function style(...objects: readonly StrictNestedCSSProperties[]): string {
+//   return typestyle.style(...objects)
+// }
 
-export const css = {
-  join,
-  rule,
-  stylesheet,
-  mixins,
-  style,
-  raw: typestyle.cssRaw,
+export function raw(css: string): void {
+  return typestyle.cssRaw(css)
 }

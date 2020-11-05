@@ -1,11 +1,11 @@
 import type { Tuple } from '../helpers/utils'
-import { css } from '../styles/css'
+import { createStyles } from '../styles/css'
 
 export function Table<C extends Tuple<string, number>>(props: {
   readonly headers: C
   readonly rows: ReadonlyArray<Tuple<JSX.Element, C['length']>>
 }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     table: {
       display: 'grid',
       width: '100%',

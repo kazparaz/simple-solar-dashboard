@@ -4,20 +4,16 @@ import { Flex } from '../components/Flex'
 import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { Table } from '../components/Table'
-import { css } from '../styles/css'
+import { createStyles } from '../styles/css'
 import { TemplateDashboard } from './templates/TemplateDashboard'
 
 export function PageDashboardSummary(): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     sectionTop: {
-      // display: 'grid',
-      // gridTemplateColumns: 'auto 198px',
-      // justifyContent: 'space-between',
       marginBottom: 23,
     },
     sectionTitle: {
       fontSize: 18,
-      fontWeight: 500,
     },
     sectionBtn: {
       marginTop: -8,

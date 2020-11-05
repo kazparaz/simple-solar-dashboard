@@ -1,6 +1,6 @@
 import { isKeyOf } from '../helpers/utils'
 import { useRouter, RoutePath, routes } from '../routes'
-import { css } from '../styles/css'
+import { cls, createStyles } from '../styles/css'
 
 export function Link(props: {
   readonly children: JSX.Element
@@ -9,13 +9,13 @@ export function Link(props: {
   readonly href?: string | RoutePath
   readonly onClick?: () => void
 }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     link: { textDecoration: props.underline ? 'underline' : 'none' },
   })
   const router = useRouter()
   return (
     <a
-      class={css.join(styles.link, props.class)}
+      class={cls(styles.link, props.class)}
       href={props.href ?? 'javascript:void(0)'}
       onClick={(event) => {
         if (isKeyOf(props.href, routes)) {

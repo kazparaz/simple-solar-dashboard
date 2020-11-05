@@ -3,6 +3,7 @@ import type { Component } from 'solid-js'
 import { createSignal, onCleanup } from 'solid-js'
 import { ensureType, isKeyOf } from './helpers/utils'
 import { Page404 } from './pages/Page404'
+import { PageDashboardPlantsElectrical } from './pages/PageDashboardPlantsElectrical'
 import { PageDashboardSummary } from './pages/PageDashboardSummary'
 import { PageLogin } from './pages/PageLogin'
 import { PageNoContent } from './pages/PageNoContent'
@@ -33,7 +34,7 @@ export const routes = ensureType<Record<string, RouteData>>()({
   },
   '/dashboard/simulation/plants-electrical': {
     pageTitle: 'Plants & electrical',
-    component: PageNoContent,
+    component: PageDashboardPlantsElectrical,
   },
   '/dashboard/calculations/ongoing': {
     pageTitle: 'Ongoing calculations',

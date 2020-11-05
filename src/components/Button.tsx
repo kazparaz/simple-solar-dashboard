@@ -1,5 +1,6 @@
 import type { RoutePath } from '../routes'
-import { css } from '../styles/css'
+import { cls, createStyles } from '../styles/css'
+import { mixins } from '../styles/mixins'
 import { Link } from './Link'
 
 export function Button(props: {
@@ -12,7 +13,7 @@ export function Button(props: {
   readonly href?: string | RoutePath
   readonly onClick?: () => void
 }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     button: {
       appearance: 'none',
       borderRadius: 4,
@@ -21,7 +22,7 @@ export function Button(props: {
       cursor: 'pointer',
       fontFamily: 'Inter, system-ui, sans-serif',
       textAlign: 'center',
-      ...css.mixins.boxShadows.subtle,
+      ...mixins.boxShadows.subtle,
 
       $nest: {
         '&:focus': {
@@ -85,7 +86,7 @@ export function Button(props: {
       $nest: { '&:hover': { opacity: 1 } },
     },
   })
-  const classes = css.join(
+  const classes = cls(
     styles.button,
     props.class,
     `theme-${props.theme ?? 'primary'}`,

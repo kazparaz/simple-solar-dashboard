@@ -1,4 +1,5 @@
-import { css, StrictCSSProperties } from '../styles/css'
+import type { StrictCSSProperties } from '../styles/css'
+import { createStyles } from '../styles/css'
 
 const symbols = {
   x: () => (
@@ -17,7 +18,7 @@ export function Icon(props: {
   readonly symbol: keyof typeof symbols
   readonly color?: StrictCSSProperties['color']
 }): JSX.Element {
-  const style = css.stylesheet({
+  const style = createStyles({
     icon: {
       display: 'block',
       $nest: {

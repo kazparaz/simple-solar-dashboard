@@ -1,11 +1,11 @@
 import { Spacer } from '../../components/Spacer'
 import { useCurrentRoute } from '../../routes'
-import { css } from '../../styles/css'
+import { createStyles } from '../../styles/css'
 import { DashboardHeader } from './DashboardHeader'
 import { DashboardSidebar } from './DashboardSidebar'
 
 export function TemplateDashboard(props: { readonly children: JSX.Element }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     dashboard: {
       height: '100%',
       display: 'grid',

@@ -2,10 +2,10 @@ import { Flex } from '../../components/Flex'
 import { Icon } from '../../components/Icon'
 import { Link } from '../../components/Link'
 import { Spacer } from '../../components/Spacer'
-import { css } from '../../styles/css'
+import { cls, createStyles } from '../../styles/css'
 
 export function DashboardHeader(props: { readonly class: string }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     header: {
       paddingLeft: 28,
       paddingRight: 24,
@@ -48,7 +48,7 @@ export function DashboardHeader(props: { readonly class: string }): JSX.Element 
   })
 
   return (
-    <header class={css.join(styles.header, props.class)}>
+    <header class={cls(styles.header, props.class)}>
       <div>
         <Link class={styles.left} href="/login">
           <Flex alignItems="center">

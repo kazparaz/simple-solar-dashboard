@@ -6,11 +6,11 @@
 // TODO - fix, when new snowpack is released
 import { normalize } from 'csstips/lib/normalize'
 import { setupPage } from 'csstips/lib/page'
-import { css } from './css'
+import { raw, rule } from './css'
 
 export function addGlobalStyles(appContainerSelector: string): void {
-  // @import must be at the top of the stylesheet
-  css.raw(
+  // @import must be at the top of the createStyles
+  raw(
     `@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");`
   )
 
@@ -19,7 +19,7 @@ export function addGlobalStyles(appContainerSelector: string): void {
   normalize()
   setupPage(appContainerSelector)
 
-  css.rule('body', {
+  rule('body', {
     fontFamily: 'Inter, system-ui, sans-serif',
     fontSize: 12,
     lineHeight: 1.2,
@@ -27,21 +27,21 @@ export function addGlobalStyles(appContainerSelector: string): void {
   })
 
   // make block elements not to have any spaces, for easier layout
-  css.rule('div, header, main, footer, ul, ol, li, nav, section, h1, h2, h3, h4, h5, h6, p', {
+  rule('div, header, main, footer, ul, ol, li, nav, section, h1, h2, h3, h4, h5, h6, p', {
     margin: 0,
     padding: 0,
   })
 
-  css.rule('h1', { fontSize: 24, fontWeight: 700 })
-  css.rule('h2', { fontSize: 18, fontWeight: 700 })
-  css.rule('h3', { fontSize: 16, fontWeight: 500 })
-  css.rule('h4, h5, h6', { fontSize: 12, fontWeight: 500 })
+  rule('h1', { fontSize: 24, fontWeight: 700 })
+  rule('h2', { fontSize: 18, fontWeight: 700 })
+  rule('h3', { fontSize: 16, fontWeight: 500 })
+  rule('h4, h5, h6', { fontSize: 12, fontWeight: 500 })
 
-  css.rule('a', {
+  rule('a', {
     color: 'inherit',
     textDecoration: 'none',
     $nest: { '&:hover': { opacity: 0.8 } },
   })
 
-  css.rule('img', { maxWidth: '100%' })
+  rule('img', { maxWidth: '100%' })
 }

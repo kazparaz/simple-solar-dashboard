@@ -1,4 +1,5 @@
-import { css, StrictCSSProperties } from '../styles/css'
+import type { StrictCSSProperties } from '../styles/css'
+import { cls } from '../styles/css'
 
 export function Flex(props: {
   readonly class?: string
@@ -11,7 +12,7 @@ export function Flex(props: {
 }): JSX.Element {
   return (
     <div
-      class={css.join(props.class, {
+      class={cls(props.class, {
         display: 'flex',
         gap: props.gap,
         justifyContent: props.justifyContent,

@@ -1,6 +1,6 @@
 import { Link } from '../../components/Link'
 import { routes, RoutePath, useCurrentRoute } from '../../routes'
-import { css } from '../../styles/css'
+import { cls, createStyles } from '../../styles/css'
 
 const navigation: ReadonlyArray<{
   readonly groupName?: string
@@ -27,7 +27,7 @@ const navigation: ReadonlyArray<{
 ]
 
 export function DashboardSidebar(props: { readonly class: string }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     sidebar: {
       backgroundColor: '#FAFAFA',
     },
@@ -53,7 +53,7 @@ export function DashboardSidebar(props: { readonly class: string }): JSX.Element
   const route = useCurrentRoute()
 
   return (
-    <nav class={css.join(styles.sidebar, props.class)}>
+    <nav class={cls(styles.sidebar, props.class)}>
       {navigation.map(({ groupName, items }) => (
         <section class={styles.group}>
           {groupName && <h4 class={styles.groupName}>{groupName}</h4>}
@@ -73,7 +73,7 @@ export function DashboardSidebar(props: { readonly class: string }): JSX.Element
 function SidebarItem(
   props: { readonly isSelected: boolean } & typeof navigation[number]['items'][number]
 ): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     item: {
       display: 'grid',
       gridAutoFlow: 'column',
@@ -95,9 +95,7 @@ function SidebarItem(
   const { pageTitle } = routes[props.path]
 
   return (
-    <Link
-      class={css.join(styles.item, { [styles.isSelected]: props.isSelected })}
-      href={props.path}>
+    <Link class={cls(styles.item, { [styles.isSelected]: props.isSelected })} href={props.path}>
       {pageTitle}
       <span class={styles.meta}>{props.meta}</span>
     </Link>

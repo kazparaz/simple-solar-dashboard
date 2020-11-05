@@ -29,21 +29,7 @@ module.exports = {
     'plugin:unicorn/recommended',
   ],
   rules: {
-    'no-restricted-imports': [
-      'error',
-      {
-        name: 'typestyle',
-        message: `Use "css" helper`,
-      },
-      {
-        name: 'csstips',
-        message: `Use "css" helper`,
-      },
-      {
-        name: 'csx',
-        message: `Use "css" helper`,
-      },
-    ],
+    'no-restricted-imports': ['error', 'typestyle', 'csstips', 'csx'],
 
     'functional/no-return-void': 'off',
     'functional/no-throw-statement': 'off',

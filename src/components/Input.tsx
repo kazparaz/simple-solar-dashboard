@@ -1,5 +1,5 @@
 import { createState } from 'solid-js'
-import { css } from '../styles/css'
+import { cls, createStyles } from '../styles/css'
 import { Icon } from './Icon'
 import { Link } from './Link'
 import { Spacer } from './Spacer'
@@ -14,27 +14,29 @@ export function Input(props: {
   readonly onChange?: (value: string) => void
   readonly onInput?: (value: string) => void
 }): JSX.Element {
-  const inputClass = css.style({
-    width: '100%',
-    height: 33,
-    padding: '0 26px 0 10px',
-    fontFamily: 'Inter, system-ui, sans-serif',
-    fontSize: 12,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#C4C4C4',
-    borderRadius: 3,
-    outline: 'none',
-    $nest: {
-      '&&&:focus': {
-        borderColor: '#1E8072',
+  const { input } = createStyles({
+    input: {
+      width: '100%',
+      height: 33,
+      padding: '0 26px 0 10px',
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: 12,
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderColor: '#C4C4C4',
+      borderRadius: 3,
+      outline: 'none',
+      $nest: {
+        '&&&:focus': {
+          borderColor: '#1E8072',
+        },
+        '&&&.is-error': { borderColor: '#D11C32' },
+        '&&&.is-disabled': { borderColor: '#C4C4C4' },
       },
-      '&&&.is-error': { borderColor: '#D11C32' },
-      '&&&.is-disabled': { borderColor: '#C4C4C4' },
     },
   })
 
-  const styles = css.stylesheet({
+  const styles = createStyles({
     inputComponent: {
       display: 'block',
       width: '100%',
@@ -47,7 +49,7 @@ export function Input(props: {
       position: 'relative',
       // clear button removes hover from input, so we define it here
       $nest: {
-        [`& .${inputClass}:hover`]: {
+        [`& .${input}:hover`]: {
           borderColor: '#878787',
         },
       },
@@ -79,7 +81,7 @@ export function Input(props: {
 
       <div class={styles.inputWrap}>
         <input
-          class={css.join(inputClass, `is-${state.status}`)}
+          class={cls(input, `is-${state.status}`)}
           name={props.name}
           type={props.type}
           required={props.required}

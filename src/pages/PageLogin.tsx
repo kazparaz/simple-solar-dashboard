@@ -6,14 +6,15 @@ import { Spacer } from '../components/Spacer'
 import { api } from '../helpers/api'
 import Logo from '../images/PVcase-logo.svg'
 import { useRouter } from '../routes'
-import { css } from '../styles/css'
+import { createStyles } from '../styles/css'
+import { mixins } from '../styles/mixins'
 
 export function PageLogin(): JSX.Element {
   const [state, setState] = createState({
     inputs: { username: '', password: '' },
     status: undefined as 'success' | 'fail' | 'loading' | undefined,
   })
-  const styles = css.stylesheet({
+  const styles = createStyles({
     loginWrap: {
       display: 'grid',
       justifyContent: 'center',
@@ -24,7 +25,7 @@ export function PageLogin(): JSX.Element {
       backgroundColor: '#262626',
     },
     loginBox: {
-      ...css.mixins.modal,
+      ...mixins.modal,
       width: 364,
     },
     loginTop: {

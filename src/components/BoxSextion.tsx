@@ -1,11 +1,12 @@
-import { css } from '../styles/css'
+import { cls, createStyles } from '../styles/css'
+import { mixins } from '../styles/mixins'
 import { Spacer } from './Spacer'
 
 export function BoxSection(props: {
   readonly title?: string
   readonly children: JSX.Element
 }): JSX.Element {
-  const styles = css.stylesheet({
+  const styles = createStyles({
     title: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -22,7 +23,7 @@ export function BoxSection(props: {
           <Spacer height={8} />
         </>
       )}
-      <div class={css.join(css.mixins.roundSection)}>{props.children}</div>
+      <div class={cls(mixins.roundSection)}>{props.children}</div>
     </section>
   )
 }

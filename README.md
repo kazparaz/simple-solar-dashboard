@@ -23,8 +23,9 @@ Your app is ready to be deployed!
 - css server side render (https://typestyle.github.io/#/server)
 - update snowpack when releases (https://github.com/snowpackjs/snowpack/discussions/1312)
 - Form component ?
-- Flex to component or stylesheet
 - Optimize (https://www.snowpack.dev/#optimized-builds)
 - maybe move to css helpers
 - grid component
 - improve flex component
+- state sync localstorage
+- Log in to state

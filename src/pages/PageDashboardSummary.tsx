@@ -102,7 +102,7 @@ export function PageDashboardSummary(): JSX.Element {
               <h4 class={styles.subTitle}>{item.title}</h4>
               <p class={styles.subValue}>
                 <Flex alignItems="center">
-                  2
+                  {item.value}
                   {'btnRoute' in item && item.btnRoute && (
                     <>
                       <Spacer width={15} />

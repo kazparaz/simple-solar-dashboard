@@ -16,12 +16,11 @@ export function Link(props: {
   return (
     <a
       class={css.join(styles.link, props.class)}
-      href={props.href || 'javascript:void(0)'}
+      href={props.href ?? 'javascript:void(0)'}
       onClick={(event) => {
         if (isKeyOf(props.href, routes)) {
           event.preventDefault()
           router(props.href)
-          dispatchEvent(new PopStateEvent('popstate')) // needed for useCurrentRoute
         }
         return props.onClick?.()
       }}>

@@ -23,7 +23,7 @@ export function Icon(props: {
       $nest: {
         '> svg': {
           display: 'block',
-          fill: props.color || 'currentColor',
+          fill: props.color ?? 'currentColor',
         },
       },
     },

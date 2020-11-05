@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-imports */
 
 import * as typestyle from 'typestyle'
-import * as mixins from './mixins'
+import { mixins } from './mixins'
 import type { StyleGuide } from './styleguide'
 
 // disallow shorthand rules for better typechecking

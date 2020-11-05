@@ -18,6 +18,7 @@ export function Input(props: {
     width: '100%',
     height: 33,
     padding: '0 26px 0 10px',
+    fontFamily: 'Inter, system-ui, sans-serif',
     fontSize: 12,
     borderWidth: 1,
     borderStyle: 'solid',
@@ -38,7 +39,10 @@ export function Input(props: {
       display: 'block',
       width: '100%',
     },
-    label: { cursor: 'pointer' },
+    label: {
+      cursor: 'pointer',
+      fontWeight: 500,
+    },
     inputWrap: {
       position: 'relative',
       // clear button removes hover from input, so we define it here

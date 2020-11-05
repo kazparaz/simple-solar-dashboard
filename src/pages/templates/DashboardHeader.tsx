@@ -1,3 +1,4 @@
+import { Flex } from '../../components/Flex'
 import { Icon } from '../../components/Icon'
 import { Link } from '../../components/Link'
 import { Spacer } from '../../components/Spacer'
@@ -16,24 +17,27 @@ export function DashboardHeader(props: { readonly class: string }): JSX.Element 
       gridTemplateColumns: 'repeat(3, 1fr)',
       alignItems: 'center',
       justifyContent: 'space-between',
-      $nest: { '& > *': css.mixins.layout.flexCenter },
+      $nest: {
+        '> *': {
+          display: 'flex',
+          justifyItems: 'center',
+          alignContent: 'center',
+        },
+      },
     },
     left: {
-      ...css.mixins.layout.flexCenter,
       marginRight: 'auto',
+      fontWeight: 500,
     },
     middle: {
-      ...css.mixins.layout.flexCenter,
       margin: 'auto',
       fontWeight: 700,
       fontSize: 16,
     },
     right: {
-      ...css.mixins.layout.flexCenter,
       marginLeft: 'auto',
     },
     avatar: {
-      ...css.mixins.layout.flexCenter,
       width: 24,
       height: 24,
       backgroundColor: '#FFFFFF',
@@ -47,9 +51,11 @@ export function DashboardHeader(props: { readonly class: string }): JSX.Element 
     <header class={css.join(styles.header, props.class)}>
       <div>
         <Link class={styles.left} href="/login">
-          <Icon symbol="home" />
-          <Spacer width={10} />
-          <span>Back to projects</span>
+          <Flex alignItems="center">
+            <Icon symbol="home" />
+            <Spacer width={10} />
+            <span>Back to projects</span>
+          </Flex>
         </Link>
       </div>
       <div>
@@ -57,9 +63,13 @@ export function DashboardHeader(props: { readonly class: string }): JSX.Element 
       </div>
       <div>
         <Link class={styles.right}>
-          <span>Tester Testman</span>
-          <Spacer width={16} />
-          <span class={styles.avatar}>A</span>
+          <Flex alignItems="center">
+            <span>Tester Testman</span>
+            <Spacer width={16} />
+            <Flex justifyContent="center" alignItems="center" class={styles.avatar}>
+              A
+            </Flex>
+          </Flex>
         </Link>
       </div>
     </header>

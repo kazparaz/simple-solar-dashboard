@@ -31,5 +31,5 @@ export type StyleGuide = {
     | 'inherit'
   readonly fontSize: 24 | 18 | 16 | 14 | 12 | 10
   readonly fontFamily: 'Inter, system-ui, sans-serif'
-  readonly fontWeight: 500 | 700
+  readonly fontWeight: 400 | 500 | 700
 }

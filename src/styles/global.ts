@@ -10,7 +10,9 @@ import { css } from './css'
 
 export function addGlobalStyles(appContainerSelector: string): void {
   // @import must be at the top of the stylesheet
-  css.raw(`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap')`)
+  css.raw(
+    `@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");`
+  )
 
   // Normalize browsers styles
   // @see https://typestyle.github.io/#/page
@@ -30,19 +32,16 @@ export function addGlobalStyles(appContainerSelector: string): void {
     padding: 0,
   })
 
-  css.rule('h1', { fontSize: 24 })
-  css.rule('h2', { fontSize: 18 })
-  css.rule('h3', { fontSize: 16 })
-  css.rule('h4, h5, h6', { fontSize: 12 })
+  css.rule('h1', { fontSize: 24, fontWeight: 700 })
+  css.rule('h2', { fontSize: 18, fontWeight: 700 })
+  css.rule('h3', { fontSize: 16, fontWeight: 500 })
+  css.rule('h4, h5, h6', { fontSize: 12, fontWeight: 500 })
 
   css.rule('a', {
     color: 'inherit',
     textDecoration: 'none',
-
-    $nest: {
-      '&:hover': {
-        opacity: 0.8,
-      },
-    },
+    $nest: { '&:hover': { opacity: 0.8 } },
   })
+
+  css.rule('img', { maxWidth: '100%' })
 }

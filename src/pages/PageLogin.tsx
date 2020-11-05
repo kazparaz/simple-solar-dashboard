@@ -11,18 +11,9 @@ import { css } from '../styles/css'
 export function PageLogin(): JSX.Element {
   const [state, setState] = createState({
     inputs: { username: '', password: '' },
-    status: undefined as undefined | 'success' | 'fail' | 'loading',
+    status: undefined as 'success' | 'fail' | 'loading' | undefined,
   })
   const styles = css.stylesheet({
-    roundBox: {
-      padding: 32,
-      backgroundColor: '#FFFFFF',
-      borderRadius: 8,
-      borderWidth: 1,
-      borderStyle: 'solid',
-      borderColor: '#0B382B',
-      boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.4)',
-    },
     loginWrap: {
       display: 'grid',
       justifyContent: 'center',
@@ -33,6 +24,7 @@ export function PageLogin(): JSX.Element {
       backgroundColor: '#262626',
     },
     loginBox: {
+      ...css.mixins.modal,
       width: 364,
     },
     loginTop: {
@@ -40,11 +32,16 @@ export function PageLogin(): JSX.Element {
     },
     loginSubText: {
       fontSize: 16,
+      fontWeight: 500,
       color: '#C4C4C4',
+    },
+    loginBtn: {
+      width: '100%',
     },
     footer: {
       color: '#FFFFFF',
       fontSize: 16,
+      fontWeight: 500,
     },
   })
 
@@ -66,7 +63,7 @@ export function PageLogin(): JSX.Element {
 
   return (
     <div class={styles.loginWrap}>
-      <div class={css.join(styles.loginBox, styles.roundBox)}>
+      <div class={styles.loginBox}>
         <div class={styles.loginTop}>
           <img src={Logo} alt="PVcase logo" />
           <Spacer height={24} />
@@ -99,7 +96,9 @@ export function PageLogin(): JSX.Element {
             onChange={(v) => setState('inputs', 'password', v)}
           />
           <Spacer height={40} />
-          <Button text="Log in" type="submit" disabled={state.status === 'loading'} />
+          <Button class={styles.loginBtn} type="submit" disabled={state.status === 'loading'}>
+            Log in
+          </Button>
         </form>
       </div>
 

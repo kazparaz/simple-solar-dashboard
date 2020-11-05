@@ -33,7 +33,7 @@ export function DashboardSidebar(props: { readonly class: string }): JSX.Element
     },
     group: {
       paddingTop: 16,
-      paddingBottom: 16,
+      paddingBottom: 15,
       $nest: {
         '&:not(:last-child)': {
           borderWidth: '0 0 1px 0',
@@ -81,6 +81,7 @@ function SidebarItem(
       alignContent: 'center',
       padding: '12px 24px',
       fontSize: 14,
+      fontWeight: 500,
     },
     isSelected: {
       backgroundColor: '#D0E4E1',

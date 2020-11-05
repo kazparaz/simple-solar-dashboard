@@ -50,7 +50,10 @@ export const routes = ensureType<Record<string, RouteData>>()({
 // router hook with more strict types
 export function useRouter(): (path: RoutePath) => void {
   const router = useRouterOriginal()
-  return router.push
+  return (path) => {
+    router.push(path)
+    dispatchEvent(new PopStateEvent('popstate')) // needed for useCurrentRoute
+  }
 }
 
 function getRouteFromLocation(): ({ readonly path: RoutePath } & RouteData) | undefined {

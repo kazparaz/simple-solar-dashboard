@@ -36,6 +36,10 @@ export const routes = ensureType<Record<string, RouteData>>()({
     pageTitle: 'Plants & electrical',
     component: PageDashboardPlantsElectrical,
   },
+  '/dashboard/simulation/plants-electrical/add-module': {
+    pageTitle: 'Plants & electrical',
+    component: PageDashboardPlantsElectrical,
+  },
   '/dashboard/calculations/ongoing': {
     pageTitle: 'Ongoing calculations',
     component: PageNoContent,

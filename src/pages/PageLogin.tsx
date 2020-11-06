@@ -1,19 +1,17 @@
-import { createState } from 'solid-js'
+import { createSignal, createState } from 'solid-js'
 import { Button } from '../components/Button'
+import { Grid } from '../components/Grid'
 import { InputText } from '../components/InputText'
 import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { api } from '../helpers/api'
+import { useFormFields } from '../helpers/hooks'
 import Logo from '../images/PVcase-logo.svg'
 import { useRouter } from '../routes'
 import { createStyles } from '../styles/css'
 import { mixins } from '../styles/mixins'
 
 export function PageLogin(): JSX.Element {
-  const [state, setState] = createState({
-    inputs: { username: '', password: '' },
-    status: undefined as 'success' | 'fail' | 'loading' | undefined,
-  })
   const styles = createStyles({
     loginWrap: {
       display: 'grid',
@@ -45,21 +43,40 @@ export function PageLogin(): JSX.Element {
       fontWeight: 500,
     },
   })
+  const [status, setStatus] = createSignal(undefined as 'success' | 'fail' | 'loading' | undefined)
+
+  const [fields] = useFormFields({
+    name: {
+      label: 'Name',
+      type: 'text',
+      required: true,
+      value: '',
+    },
+    password: {
+      label: 'Password',
+      type: 'password',
+      required: true,
+      value: '',
+    },
+  })
 
   const router = useRouter()
 
   async function handleLogin(): Promise<void> {
-    setState('status', 'loading')
-    const response = await api.login(state.inputs)
+    setStatus('loading')
+    const response = await api.login({
+      username: fields.name.value,
+      password: fields.password.value,
+    })
     if ('success' in response && response.success) {
-      setState('status', 'success')
+      setStatus('success')
       router('/dashboard/summary')
       return
     }
     if ('error' in response) {
       console.log(response.error)
     }
-    setState('status', 'fail')
+    setStatus('fail')
   }
 
   return (
@@ -79,25 +96,20 @@ export function PageLogin(): JSX.Element {
             e.preventDefault()
             void handleLogin()
           }}>
-          <InputText
-            label="Name"
-            type="text"
-            required
-            disabled={state.status === 'loading'}
-            error={state.status === 'fail'}
-            onChange={(v) => setState('inputs', 'username', v)}
-          />
-          <Spacer height={24} />
-          <InputText
-            label="Password"
-            type="password"
-            required
-            disabled={state.status === 'loading'}
-            error={state.status === 'fail' ? 'Login failed' : undefined}
-            onChange={(v) => setState('inputs', 'password', v)}
-          />
+          <Grid gap={24} columns={1}>
+            <InputText
+              {...fields.name}
+              disabled={status() === 'loading'}
+              error={status() === 'fail'}
+            />
+            <InputText
+              {...fields.password}
+              disabled={status() === 'loading'}
+              error={status() === 'fail' ? 'Login failed' : undefined}
+            />
+          </Grid>
           <Spacer height={40} />
-          <Button class={styles.loginBtn} type="submit" disabled={state.status === 'loading'}>
+          <Button class={styles.loginBtn} type="submit" disabled={status() === 'loading'}>
             Log in
           </Button>
         </form>

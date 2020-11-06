@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js'
+import { createEffect, createSignal } from 'solid-js'
 import { Button } from '../../components/Button'
 import { Flex } from '../../components/Flex'
 import { Grid } from '../../components/Grid'
@@ -17,6 +17,7 @@ import { cls } from '../../styles/css'
 export function ModalAddNewModule(props: {
   readonly visible: boolean
   readonly onClose: () => void
+  readonly onOpen?: () => void
   readonly onModuleAdded: (name: string) => void
 }): JSX.Element {
   const [fields] = useFormFields({
@@ -43,12 +44,16 @@ export function ModalAddNewModule(props: {
   } as const)
 
   const [detailsVisible, setDetailsVisible] = createSignal(false)
+  createEffect(() => {
+    if (props.visible) props.onOpen?.()
+  })
 
   return (
     <Modal visible={props.visible}>
       <form
         class={cls({ height: '100%' })}
-        onSubmit={() => {
+        onSubmit={(event) => {
+          event.preventDefault()
           if (fields.name.value) {
             props.onModuleAdded(fields.name.value)
             props.onClose()

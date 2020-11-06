@@ -15,8 +15,9 @@ export function Table<C extends Tuple<string, number>>(props: {
         tr: {
           display: 'grid',
           gridTemplateColumns: `repeat(${props.headers.length}, minmax(0, 1fr))`,
-          marginBottom: 24,
         },
+        thead: { $nest: { tr: { marginBottom: 18 } } },
+        tbody: { $nest: { '& tr:not(:last-child)': { marginBottom: 24 } } },
         th: {
           padding: 0,
           color: '#BABABA',
@@ -43,13 +44,15 @@ export function Table<C extends Tuple<string, number>>(props: {
           ))}
         </tr>
       </thead>
-      {props.rows.map((row) => (
-        <tr>
-          {row.map((item) => (
-            <td>{item}</td>
-          ))}
-        </tr>
-      ))}
+      <tbody>
+        {props.rows.map((row) => (
+          <tr>
+            {row.map((item) => (
+              <td>{item}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   )
 }

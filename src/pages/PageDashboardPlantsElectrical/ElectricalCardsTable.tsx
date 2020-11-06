@@ -1,15 +1,16 @@
-import { createState } from 'solid-js'
+import { createEffect, createState } from 'solid-js'
 import { Alert } from '../../components/Alert'
 import { Flex } from '../../components/Flex'
 import { Grid } from '../../components/Grid'
 import { Icon } from '../../components/Icon'
 import { Link } from '../../components/Link'
 import { Spacer } from '../../components/Spacer'
+import { useCurrentRoute, useRouter } from '../../routes'
 import { cls, createStyles } from '../../styles/css'
 import { ElectricalCard } from './ElectricalCard'
 import { ModalAddNewModule } from './ModalAddNewModule'
 
-const state = {
+const items = {
   plants: [
     { title: 'Plant Version 1', meta: 'Preliminary • View factors' },
     { title: 'Plant Version 2', meta: 'Detailed • Ray tracing' },
@@ -54,13 +55,17 @@ export function ElectricalCardsTable(): JSX.Element {
     },
   })
 
-  const [modals, setModals] = createState({ addNewModule: false })
+  const route = useCurrentRoute()
+  const router = useRouter()
+  const [modals, setModals] = createState({
+    addNewModule: route()?.path === '/dashboard/simulation/plants-electrical/add-module',
+  })
   const [cards, setCards] = createState<
     ReadonlyArray<{
       readonly title: string
       readonly items: ReadonlyArray<{
         readonly title: string
-        readonly meta?: string
+        readonly meta?: JSX.Element
         readonly disabled?: boolean
         readonly selected?: boolean
       }>
@@ -70,22 +75,30 @@ export function ElectricalCardsTable(): JSX.Element {
   >([
     {
       title: 'Plants',
-      items: state.plants,
+      items: items.plants,
       addNewTitle: 'Add new plant',
     },
     {
       title: 'Modules',
-      items: state.modules,
+      items: items.modules,
       addNewTitle: 'Add new module',
       addNewCallback: () => setModals('addNewModule', !modals.addNewModule),
     },
     {
       title: 'Inverters',
-      items: state.inverters,
+      items: items.inverters,
       addNewTitle: 'Add new inverter',
     },
   ])
   const showAlert = (): boolean => !cards.every((card) => card.items.some((v) => v.selected))
+
+  createEffect(() => {
+    if (modals.addNewModule) {
+      router('/dashboard/simulation/plants-electrical/add-module')
+    } else {
+      router('/dashboard/simulation/plants-electrical')
+    }
+  })
 
   return (
     <>
@@ -123,6 +136,17 @@ export function ElectricalCardsTable(): JSX.Element {
               {group.items.map((item, index) => (
                 <ElectricalCard
                   {...item}
+                  meta={
+                    item.disabled ? (
+                      <Flex alignItems="center">
+                        <Icon symbol="warning" />
+                        <Spacer width={8} />
+                        Missing details
+                      </Flex>
+                    ) : (
+                      item.meta
+                    )
+                  }
                   selected={item.selected}
                   onSelect={(value) => void setCards(groupIndex, 'items', index, 'selected', value)}
                 />

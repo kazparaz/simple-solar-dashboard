@@ -42,7 +42,7 @@ export function cls(
   return typestyle.classes(
     ...values.map((value) => {
       if (typeof value === 'string' || typeof value === 'undefined') return value
-      if (Object.values(value).every((v) => typeof v === 'boolean')) return value
+      if (Object.values(value).some((v) => typeof v === 'boolean')) return value
       return typestyle.style(value)
     })
   )

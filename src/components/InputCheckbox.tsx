@@ -12,9 +12,10 @@ export function InputCheckbox(
 ): JSX.Element {
   const styles = createStyles({
     inputCheckbox: {
-      display: 'flex',
+      display: 'inline-flex',
       alignItems: 'center',
       fontSize: 16,
+      cursor: 'pointer',
     },
     real: {
       position: 'absolute',
@@ -28,12 +29,14 @@ export function InputCheckbox(
       borderStyle: 'solid',
       borderColor: '#C4C4C4',
       borderRadius: 3,
+      color: '#FFFFFF',
     },
     fakeChecked: {
       backgroundColor: '#20554E',
       borderColor: '#0B382B',
     },
   })
+
   return (
     <label class={styles.inputCheckbox}>
       <input

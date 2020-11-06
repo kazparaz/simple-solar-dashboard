@@ -37,7 +37,7 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
       <DashboardSidebar class={styles.sidebar} />
       <main class={styles.main}>
         <h1>{route()?.pageTitle}</h1>
-        <Spacer height={56} />
+        <Spacer height={52} />
         <div>{props.children}</div>
       </main>
     </div>

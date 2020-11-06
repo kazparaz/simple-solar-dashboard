@@ -4,7 +4,7 @@ import { cls, createStyles } from '../../styles/css'
 
 export function ElectricalCard(props: {
   readonly title: string
-  readonly meta?: string
+  readonly meta?: JSX.Element
   readonly disabled?: boolean
   readonly selected?: boolean
   readonly onSelect: (value: boolean) => void
@@ -43,7 +43,10 @@ export function ElectricalCard(props: {
         },
       },
     },
-    cardDisabled: {},
+    cardDisabled: {
+      opacity: '0.4 !important',
+      cursor: 'default',
+    },
     btn: {
       display: 'flex',
       justifyContent: 'center',
@@ -80,12 +83,12 @@ export function ElectricalCard(props: {
         [styles.cardSelected]: props.selected,
         [styles.cardDisabled]: !!props.disabled,
       })}
-      onClick={() => props.onSelect(!props.selected)}>
+      onClick={() => !props.disabled && props.onSelect(!props.selected)}>
       <div class={cls(styles.btn, { [styles.btnSelected]: props.selected })}>
         {props.selected && <Icon symbol="check" />}
       </div>
 
-      <h5 class={cls(styles.title, {})}>{props.title}</h5>
+      <h5 class={styles.title}>{props.title}</h5>
       {props.meta && <p>{props.meta}</p>}
     </Link>
   )

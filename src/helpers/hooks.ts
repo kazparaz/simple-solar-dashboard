@@ -32,7 +32,8 @@ export function useFormFields<T extends Record<string, FormField>>(
 ): readonly [State<WithAllFormFields<T>>, SetStateFunction<WithAllFormFields<T>>] {
   entries(fields).forEach(([key]) => {
     mutableSet(fields[key], 'name', key.toString())
-    mutableSet(fields[key], 'value', undefined) // if field is not set, rerender is triggered
+    // if field is not set - rerender is triggered
+    mutableSet(fields[key], 'value', fields[key].value || undefined)
   })
 
   const [state, setState] = createState(fields)

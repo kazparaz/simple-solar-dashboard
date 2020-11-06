@@ -9,8 +9,8 @@ import { api } from '../helpers/api'
 import { useFormFields } from '../helpers/hooks'
 import Logo from '../images/PVcase-logo.svg'
 import { useRouter } from '../routes'
-import { br, cls, createStyles, extend, media } from '../styles/css'
-import { mixins } from '../styles/mixins'
+import { cls, createStyles, extend, media } from '../styles/css'
+import { br, mixins } from '../styles/mixins'
 
 export function PageLogin(): JSX.Element {
   const styles = createStyles({

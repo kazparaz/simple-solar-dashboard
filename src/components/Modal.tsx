@@ -1,6 +1,7 @@
-import { createEffect, Show } from 'solid-js'
+import { Show } from 'solid-js'
 import { Portal } from 'solid-js/dom'
 import type { appContainerSelector } from '..'
+import { useBodyScrollPrevention } from '../helpers/hooks'
 import { assertIsDefined } from '../helpers/utils'
 import { createStyles } from '../styles/css'
 import { mixins } from '../styles/mixins'
@@ -33,10 +34,7 @@ export function Modal(props: {
     },
   })
 
-  createEffect(() => {
-    // eslint-disable-next-line functional/immutable-data
-    document.body.style.overflow = props.visible ? 'hidden' : 'auto'
-  })
+  useBodyScrollPrevention(() => props.visible)
 
   return (
     <Show when={props.visible}>

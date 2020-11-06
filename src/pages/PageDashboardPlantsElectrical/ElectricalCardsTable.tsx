@@ -57,9 +57,9 @@ export function ElectricalCardsTable(): JSX.Element {
 
   const route = useCurrentRoute()
   const router = useRouter()
-  const [modals, setModals] = createState({
-    addNewModule: route()?.path === '/dashboard/simulation/plants-electrical/add-module',
-  })
+  const isModalRoute = (): boolean =>
+    route()?.path === '/dashboard/simulation/plants-electrical/add-module'
+  const [modals, setModals] = createState({ addNewModule: isModalRoute() })
   const [cards, setCards] = createState<
     ReadonlyArray<{
       readonly title: string
@@ -82,7 +82,7 @@ export function ElectricalCardsTable(): JSX.Element {
       title: 'Modules',
       items: items.modules,
       addNewTitle: 'Add new module',
-      addNewCallback: () => setModals('addNewModule', !modals.addNewModule),
+      addNewCallback: () => router('/dashboard/simulation/plants-electrical/add-module'),
     },
     {
       title: 'Inverters',
@@ -93,10 +93,11 @@ export function ElectricalCardsTable(): JSX.Element {
   const showAlert = (): boolean => !cards.every((card) => card.items.some((v) => v.selected))
 
   createEffect(() => {
-    if (modals.addNewModule) {
-      router('/dashboard/simulation/plants-electrical/add-module')
-    } else {
-      router('/dashboard/simulation/plants-electrical')
+    console.log('effect')
+    if (isModalRoute() && !modals.addNewModule) {
+      setModals('addNewModule', true)
+    } else if (!isModalRoute() && modals.addNewModule) {
+      setModals('addNewModule', false)
     }
   })
 
@@ -111,7 +112,9 @@ export function ElectricalCardsTable(): JSX.Element {
 
       <ModalAddNewModule
         visible={modals.addNewModule}
-        onClose={() => setModals('addNewModule', false)}
+        onClose={() => {
+          router('/dashboard/simulation/plants-electrical')
+        }}
         onModuleAdded={(title) => setCards(1, 'items', cards[1].items.concat({ title }))}
       />
 

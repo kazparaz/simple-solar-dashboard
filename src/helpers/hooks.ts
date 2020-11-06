@@ -1,4 +1,4 @@
-import { createState } from 'solid-js'
+import { createEffect, createState } from 'solid-js'
 import type { SetStateFunction, State } from 'solid-js/types/reactive/state'
 import type { InputCheckbox } from '../components/InputCheckbox'
 import type { InputNumber } from '../components/InputNumber'
@@ -48,4 +48,13 @@ export function useFormFields<T extends Record<string, FormField>>(
   })
 
   return [state, setState] as never
+}
+
+// ==============================
+
+export function useBodyScrollPrevention(visible: () => boolean): void {
+  createEffect(() => {
+    // eslint-disable-next-line functional/immutable-data
+    document.body.style.overflow = visible() ? 'hidden' : 'auto'
+  })
 }

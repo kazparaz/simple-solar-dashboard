@@ -1,14 +1,15 @@
+import { Show } from 'solid-js'
 import { Link } from '../../components/Link'
+import { useBodyScrollPrevention } from '../../helpers/hooks'
 import { routes, RoutePath, useCurrentRoute } from '../../routes'
-import { cls, createStyles } from '../../styles/css'
+import { cls, createStyles, extend, media } from '../../styles/css'
+import { br } from '../../styles/mixins'
 
 const navigation: ReadonlyArray<{
   readonly groupName?: string
   readonly items: ReadonlyArray<{ readonly path: RoutePath; readonly meta?: JSX.Element }>
 }> = [
-  {
-    items: [{ path: '/dashboard/summary' }],
-  },
+  { items: [{ path: '/dashboard/summary' }] },
   {
     groupName: 'Project parameters',
     items: [{ path: '/dashboard/project/meteo' }],
@@ -26,11 +27,31 @@ const navigation: ReadonlyArray<{
   },
 ]
 
-export function DashboardSidebar(props: { readonly class: string }): JSX.Element {
+export function DashboardSidebar(props: {
+  readonly class: string
+  readonly open: () => boolean
+}): JSX.Element {
   const styles = createStyles({
-    sidebar: {
-      backgroundColor: '#FAFAFA',
-    },
+    sidebar: extend(
+      { backgroundColor: '#FAFAFA' },
+      media(br.sidebar, {
+        position: 'fixed',
+        top: 56,
+        bottom: 0,
+        width: 280,
+        zIndex: 100,
+        overflowY: 'auto',
+      })
+    ),
+    sidebarBg: media(br.sidebar, {
+      position: 'absolute',
+      top: 56,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      zIndex: 99,
+    }),
     group: {
       paddingTop: 16,
       paddingBottom: 15,
@@ -51,22 +72,26 @@ export function DashboardSidebar(props: { readonly class: string }): JSX.Element
     },
   })
   const route = useCurrentRoute()
+  useBodyScrollPrevention(props.open)
 
   return (
-    <nav class={cls(styles.sidebar, props.class)}>
-      {navigation.map(({ groupName, items }) => (
-        <section class={styles.group}>
-          {groupName && <h4 class={styles.groupName}>{groupName}</h4>}
-          {items.map((item) => (
-            <SidebarItem
-              path={item.path}
-              meta={item.meta}
-              isSelected={route()?.path === item.path}
-            />
-          ))}
-        </section>
-      ))}
-    </nav>
+    <Show when={props.open()}>
+      <div class={styles.sidebarBg} />
+      <nav class={cls(styles.sidebar, props.class)}>
+        {navigation.map(({ groupName, items }) => (
+          <section class={styles.group}>
+            {groupName && <h4 class={styles.groupName}>{groupName}</h4>}
+            {items.map((item) => (
+              <SidebarItem
+                path={item.path}
+                meta={item.meta}
+                isSelected={route()?.path === item.path}
+              />
+            ))}
+          </section>
+        ))}
+      </nav>
+    </Show>
   )
 }
 

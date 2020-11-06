@@ -4,6 +4,7 @@ import { cls, createStyles } from '../styles/css'
 export function Flex(props: {
   readonly class?: string
   readonly gap?: number
+  readonly flexWrap?: boolean
   readonly flexDirection?: StrictCSSProperties['flexDirection']
   readonly justifyContent?: StrictCSSProperties['justifyContent']
   readonly justifyItems?: StrictCSSProperties['justifyItems']
@@ -15,6 +16,7 @@ export function Flex(props: {
     flex: {
       display: 'flex',
       gap: props.gap,
+      flexWrap: props.flexWrap ? 'wrap' : undefined,
       flexDirection: props.flexDirection,
       justifyContent: props.justifyContent,
       justifyItems: props.justifyItems,

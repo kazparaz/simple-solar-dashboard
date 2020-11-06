@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-imports */
 
 import * as typestyle from 'typestyle'
-import { ensureArray, ensureType } from '../helpers/utils'
+import { ensureArray } from '../helpers/utils'
 import type { StyleGuide } from './styleguide'
 
 // disallow shorthand rules for better typechecking
@@ -72,13 +72,6 @@ export function extend(
 ): StrictNestedCSSProperties {
   return typestyle.extend(...objects) as StrictNestedCSSProperties
 }
-
-export const br = ensureType<Record<string, typestyle.types.MediaQuery>>()({
-  mobile: { maxWidth: 400 },
-  mobileL: { minWidth: 401, maxWidth: 768 },
-  tablet: { minWidth: 769, maxWidth: 1024 },
-  desktop: { minWidth: 1025 },
-})
 
 export function media(
   medias: typestyle.types.MediaQuery | ReadonlyArray<typestyle.types.MediaQuery>,

@@ -1,3 +1,6 @@
+import type { MediaQuery } from 'typestyle/lib/types'
+import { ensureType } from '../helpers/utils'
+
 export const mixins = {
   modal: {
     padding: 32,
@@ -16,3 +19,11 @@ export const mixins = {
     borderColor: '#DEDEDE',
   },
 } as const
+
+export const br = ensureType<Record<string, MediaQuery>>()({
+  mobile: { maxWidth: 400 },
+  mobileL: { minWidth: 401, maxWidth: 768 },
+  tablet: { minWidth: 769, maxWidth: 1024 },
+  sidebar: { maxWidth: 960 },
+  desktop: { minWidth: 1025 },
+})

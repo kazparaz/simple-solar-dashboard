@@ -5,14 +5,17 @@ import { Grid } from '../components/Grid'
 import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { Table } from '../components/Table'
-import { createStyles } from '../styles/css'
+import { createStyles, extend } from '../styles/css'
 import { TemplateDashboard } from './templates/TemplateDashboard'
 
 export function PageDashboardSummary(): JSX.Element {
   const styles = createStyles({
-    sectionTop: {
-      marginBottom: 19,
-    },
+    sectionTop: extend(
+      {
+        marginBottom: 19,
+      }
+      // media()
+    ),
     sectionTitle: {
       fontSize: 18,
     },
@@ -46,6 +49,7 @@ export function PageDashboardSummary(): JSX.Element {
         <BoxSection title="Project parameters">
           <Flex class={styles.sectionTop} justifyContent="space-between">
             <h3 class={styles.sectionTitle}>Meteo</h3>
+            <Spacer grow />
             <Button
               class={styles.sectionBtn}
               size="medium"

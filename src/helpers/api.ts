@@ -18,7 +18,7 @@ export const api = {
     return new Promise<ApiResponse<boolean>>((resolve) => {
       const isValid =
         args.username === validLogins.password && args.password === validLogins.password
-      const randomDelayMs = getRandomInt(1000, 2000)
+      const randomDelayMs = getRandomInt(800, 1500)
       setTimeout(() => resolve({ success: isValid }), randomDelayMs)
     })
   },

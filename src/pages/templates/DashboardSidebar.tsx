@@ -1,4 +1,3 @@
-import { Show } from 'solid-js'
 import { Link } from '../../components/Link'
 import { useBodyScrollPrevention } from '../../helpers/hooks'
 import { routes, RoutePath, useCurrentRoute } from '../../routes'
@@ -35,13 +34,19 @@ export function DashboardSidebar(props: {
     sidebar: extend(
       { backgroundColor: '#FAFAFA' },
       media(br.sidebar, {
-        position: 'fixed',
+        position: 'absolute',
         top: 56,
         bottom: 0,
         width: 280,
         zIndex: 100,
         overflowY: 'auto',
-      })
+      }),
+      media(
+        { minWidth: br.sidebar.maxWidth + 1 },
+        {
+          display: 'block !important',
+        }
+      )
     ),
     sidebarBg: media(br.sidebar, {
       position: 'absolute',
@@ -75,9 +80,11 @@ export function DashboardSidebar(props: {
   useBodyScrollPrevention(props.open)
 
   return (
-    <Show when={props.open()}>
-      <div class={styles.sidebarBg} />
-      <nav class={cls(styles.sidebar, props.class)}>
+    <>
+      <div class={styles.sidebarBg} style={{ display: props.open() ? 'block' : 'none' }} />
+      <nav
+        class={cls(styles.sidebar, props.class)}
+        style={{ display: props.open() ? 'block' : 'none' }}>
         {navigation.map(({ groupName, items }) => (
           <section class={styles.group}>
             {groupName && <h4 class={styles.groupName}>{groupName}</h4>}
@@ -91,7 +98,7 @@ export function DashboardSidebar(props: {
           </section>
         ))}
       </nav>
-    </Show>
+    </>
   )
 }
 

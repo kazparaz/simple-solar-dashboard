@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js'
 import { Spacer } from '../../components/Spacer'
 import { useCurrentRoute } from '../../routes'
-import { createStyles, extend, media } from '../../styles/css'
+import { cls, createStyles, extend, media } from '../../styles/css'
 import { br } from '../../styles/mixins'
 import { DashboardHeader } from './DashboardHeader'
 import { DashboardSidebar } from './DashboardSidebar'
@@ -18,7 +18,7 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
         gridTemplateRows: '56px auto',
         gridTemplateColumns: '280px auto',
       },
-      media({ maxWidth: 1100 }, { gridTemplateColumns: '220px auto' }),
+      media({ maxWidth: 1100 }, { gridTemplateColumns: '200px auto' }),
       media(br.sidebar, {
         gridTemplateAreas: `"h"
                             "m"`,
@@ -30,13 +30,17 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
       gridArea: 'h',
     },
     sidebar: extend({ gridArea: 's' }),
-    main: {
-      gridArea: 'm',
-      padding: '64px 45px 45px',
-      maxWidth: 800,
-      width: '100%',
-      margin: '0 auto',
-    },
+    main: extend(
+      {
+        gridArea: 'm',
+        padding: '64px 45px 45px',
+        maxWidth: 800,
+        width: '100%',
+        margin: '0 auto',
+      },
+      media(br.sidebar, { padding: '32px 16px 40px' })
+    ),
+    spacer: media(br.sidebar, { $nest: { '&&': { height: 24 } } }),
   })
 
   const route = useCurrentRoute()
@@ -48,7 +52,7 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
       <DashboardSidebar class={styles.sidebar} open={sidebar} />
       <main class={styles.main}>
         <h1>{route()?.pageTitle}</h1>
-        <Spacer height={52} />
+        <Spacer class={styles.spacer} height={52} />
         <div>{props.children}</div>
       </main>
     </div>

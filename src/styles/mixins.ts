@@ -24,6 +24,7 @@ export const br = ensureType<Record<string, MediaQuery>>()({
   mobile: { maxWidth: 400 },
   mobileL: { minWidth: 401, maxWidth: 768 },
   tablet: { minWidth: 769, maxWidth: 1024 },
-  sidebar: { maxWidth: 960 },
+  sections: { maxWidth: 560 },
+  sidebar: { maxWidth: 1020 },
   desktop: { minWidth: 1025 },
 })

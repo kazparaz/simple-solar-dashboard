@@ -5,32 +5,33 @@ import { Grid } from '../components/Grid'
 import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { Table } from '../components/Table'
-import { createStyles, extend } from '../styles/css'
+import { cls, createStyles, extend, media } from '../styles/css'
+import { br } from '../styles/mixins'
 import { TemplateDashboard } from './templates/TemplateDashboard'
 
 export function PageDashboardSummary(): JSX.Element {
   const styles = createStyles({
     sectionTop: extend(
-      {
-        marginBottom: 19,
-      }
-      // media()
+      { marginBottom: 19 },
+      media(br.sections, {
+        flexWrap: 'wrap',
+      })
     ),
-    sectionTitle: {
-      fontSize: 18,
-    },
-    sectionBtn: {
-      marginTop: -8,
-      minWidth: 198,
-    },
-    sectionBottom3: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-    },
-    sectionBottom5: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(5, 1fr)',
-    },
+    sectionTitle: extend(
+      {
+        fontSize: 18,
+      },
+      media(br.sections, { width: '100%' })
+    ),
+    sectionBtn: extend(
+      {
+        marginTop: -8,
+        minWidth: 198,
+      },
+      media(br.sections, { marginTop: 16 }),
+      media(br.mobile, { minWidth: 0, width: '100%' })
+    ),
+    subGrid: media(br.sections, { $nest: { '&&': { gridTemplateColumns: 'repeat(2, 1fr)' } } }),
     subTitle: {
       marginBottom: 4,
       color: '#BABABA',
@@ -40,6 +41,9 @@ export function PageDashboardSummary(): JSX.Element {
     subValue: {
       fontSize: 16,
       fontWeight: 500,
+    },
+    table: {
+      overflowX: 'auto',
     },
   })
 
@@ -58,7 +62,7 @@ export function PageDashboardSummary(): JSX.Element {
               Go to Meteo
             </Button>
           </Flex>
-          <div class={styles.sectionBottom3}>
+          <Grid class={styles.subGrid} gap={20}>
             {[
               { title: 'Location', value: 'Kaunas, Lithuania' },
               { title: 'Coordinates', value: '54.8985° N, 23.9036° E' },
@@ -69,7 +73,7 @@ export function PageDashboardSummary(): JSX.Element {
                 <p class={styles.subValue}>{item.value}</p>
               </section>
             ))}
-          </div>
+          </Grid>
         </BoxSection>
 
         <BoxSection title="Simulation parameters">
@@ -83,7 +87,7 @@ export function PageDashboardSummary(): JSX.Element {
               Go to Plants & electrical
             </Button>
           </Flex>
-          <div class={styles.sectionBottom3}>
+          <Grid class={styles.subGrid} gap={20}>
             {([
               {
                 title: 'Plant versions',
@@ -117,7 +121,7 @@ export function PageDashboardSummary(): JSX.Element {
                 </p>
               </section>
             ))}
-          </div>
+          </Grid>
         </BoxSection>
 
         <BoxSection title="Calculations">
@@ -131,8 +135,9 @@ export function PageDashboardSummary(): JSX.Element {
               Go to Calculated
             </Button>
           </Flex>
-          <div>
+          <div class={styles.table}>
             <Table
+              class={cls({ minWidth: 400 })}
               headers={['No.', 'Date', 'Type', 'Configuration', 'Yield']}
               rows={[
                 ['#22', '2020-09-17', 'Preliminary', <Link underline>View</Link>, '1000 kWh'],

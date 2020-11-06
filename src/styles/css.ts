@@ -4,6 +4,7 @@
 /* eslint-disable no-restricted-imports */
 
 import * as typestyle from 'typestyle'
+import { MediaQuery } from 'typestyle/lib/types'
 import { ensureArray } from '../helpers/utils'
 import type { StyleGuide } from './styleguide'
 

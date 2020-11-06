@@ -7,6 +7,9 @@ export function BoxSection(props: {
   readonly children: JSX.Element
 }): JSX.Element {
   const styles = createStyles({
+    section: {
+      overflow: 'hidden',
+    },
     title: {
       fontSize: 16,
       lineHeight: 1.5,
@@ -16,7 +19,7 @@ export function BoxSection(props: {
   })
 
   return (
-    <section>
+    <section class={styles.section}>
       {!!props.title && (
         <>
           <h2 class={styles.title}>{props.title}</h2>

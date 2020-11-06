@@ -31,8 +31,14 @@ export function DashboardHeader(props: {
         },
       },
       media(br.sidebar, {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 56,
         paddingLeft: 16,
         paddingRight: 16,
+        zIndex: 101,
       })
     ),
     left: {

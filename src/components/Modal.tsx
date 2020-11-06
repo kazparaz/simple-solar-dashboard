@@ -23,6 +23,7 @@ export function Modal(props: {
       left: 0,
       bottom: 0,
       right: 0,
+      height: '100%',
       backgroundColor: 'rgba(0, 0, 0, 0.8)',
       zIndex: 69,
       overflowY: 'scroll',

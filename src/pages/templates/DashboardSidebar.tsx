@@ -34,7 +34,7 @@ export function DashboardSidebar(props: {
     sidebar: extend(
       { backgroundColor: '#FAFAFA' },
       media(br.sidebar, {
-        position: 'absolute',
+        position: 'fixed',
         top: 56,
         bottom: 0,
         width: 280,

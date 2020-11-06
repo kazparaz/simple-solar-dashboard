@@ -42,10 +42,9 @@ export function ModalAddNewModule(props: {
       { color: '#BABABA' },
       media({ maxWidth: br.mobileL.maxWidth }, { display: 'none' })
     ),
-    bottomInput: extend({
-      display: 'flex',
-      justifyContent: 'center',
-    }),
+    bottomInput: extend(
+      media({ maxWidth: br.mobileL.maxWidth }, { display: 'flex', justifyContent: 'center' })
+    ),
     bottomButtons: extend(
       { $nest: { '&&': { gridTemplateColumns: '0.9fr 1fr' } } },
       media(

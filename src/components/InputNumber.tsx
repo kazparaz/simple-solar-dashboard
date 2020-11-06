@@ -12,6 +12,11 @@ export function InputNumber(
   const inputClass = createStyle({
     ...inputBaseStyle,
     paddingRight: 44,
+    $nest: {
+      '&::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none',
+      },
+    },
   })
   const styles = createStyles({
     unit: {

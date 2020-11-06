@@ -12,6 +12,7 @@ export function InputSelect<T extends string>(props: InputSelectTypes<T>): JSX.E
       ...inputBaseStyle,
       paddingRight: 30,
       appearance: 'none',
+      '-moz-appearance': 'none',
     },
     arrow: {
       position: 'absolute',

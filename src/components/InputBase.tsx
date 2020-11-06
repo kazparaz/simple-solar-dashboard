@@ -2,6 +2,8 @@ import { cls, createStyles, StrictNestedCSSProperties } from '../styles/css'
 import { Spacer } from './Spacer'
 
 export const inputBaseStyle: StrictNestedCSSProperties = {
+  '-moz-appearance': 'textfield',
+  appearance: 'none',
   width: '100%',
   height: 33,
   padding: '0 26px 0 10px',

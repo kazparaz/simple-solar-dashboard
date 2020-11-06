@@ -34,7 +34,7 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
       {
         gridArea: 'm',
         padding: '64px 45px 45px',
-        maxWidth: 800,
+        maxWidth: 800 + 2 * 45,
         width: '100%',
         margin: '0 auto',
         minWidth: 0,

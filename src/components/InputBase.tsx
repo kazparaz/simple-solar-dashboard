@@ -1,4 +1,4 @@
-import { createStyles, StrictNestedCSSProperties } from '../styles/css'
+import { cls, createStyles, StrictNestedCSSProperties } from '../styles/css'
 import { Spacer } from './Spacer'
 
 export const inputBaseStyle: StrictNestedCSSProperties = {
@@ -18,7 +18,7 @@ export const inputBaseStyle: StrictNestedCSSProperties = {
       borderColor: '#1E8072',
     },
     '&&&.is-error': { borderColor: '#D11C32' },
-    '&&&.is-disabled': { borderColor: '#C4C4C4' },
+    '&&&.is-disabled': { backgroundColor: '#EDEDED', borderColor: '#C4C4C4' },
   },
 }
 
@@ -45,7 +45,7 @@ export type InputBaseProps<T> = {
 }
 
 export function InputBase<T>(
-  props: Pick<InputBaseProps<T>, 'label' | 'error'> & {
+  props: Pick<InputBaseProps<T>, 'label' | 'error' | 'disabled'> & {
     readonly children: JSX.Element
     readonly inputClass: string
   }
@@ -68,6 +68,9 @@ export function InputBase<T>(
       cursor: 'pointer',
       fontWeight: 500,
     },
+    labelDisabled: {
+      color: '#878787',
+    },
     errorMsg: {
       fontSize: 10,
       color: '#D11C32',
@@ -76,7 +79,9 @@ export function InputBase<T>(
 
   return (
     <div class={styles.inputComponent}>
-      <label class={styles.label}>{props.label}</label>
+      <label class={cls(styles.label, { [styles.labelDisabled]: props.disabled })}>
+        {props.label}
+      </label>
       <Spacer height={3} />
 
       <div class={styles.inputWrap}>{props.children}</div>

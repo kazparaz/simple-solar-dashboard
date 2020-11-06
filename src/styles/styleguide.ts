@@ -31,7 +31,7 @@ export type StyleGuide = {
     | 'currentColor'
     | 'inherit'
     | 'transparent'
-  readonly fontSize: 24 | 18 | 16 | 14 | 12 | 10
+  readonly fontSize: 24 | 21 | 18 | 16 | 14 | 12 | 10
   readonly fontFamily: 'Inter, system-ui, sans-serif'
   readonly fontWeight: 400 | 500 | 700
 }

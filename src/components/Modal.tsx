@@ -3,8 +3,8 @@ import { Portal } from 'solid-js/dom'
 import type { appContainerSelector } from '..'
 import { useBodyScrollPrevention } from '../helpers/hooks'
 import { assertIsDefined } from '../helpers/utils'
-import { createStyles } from '../styles/css'
-import { mixins } from '../styles/mixins'
+import { createStyles, extend, media } from '../styles/css'
+import { br, mixins } from '../styles/mixins'
 import { Flex } from './Flex'
 
 export function Modal(props: {
@@ -17,22 +17,27 @@ export function Modal(props: {
   assertIsDefined(portalTarget)
 
   const styles = createStyles({
-    modalWrap: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      zIndex: 69,
-      overflowY: 'scroll',
-    },
-    modal: {
-      ...mixins.modal,
-      width: 702,
-      height: 560,
-    },
+    modalWrap: extend(
+      {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        zIndex: 69,
+        overflowY: 'scroll',
+      },
+      media({ maxWidth: br.tablet.maxWidth }, { top: 56, display: 'block' })
+    ),
+    modal: extend(
+      {
+        ...mixins.modal,
+        width: 702,
+        height: 560,
+      },
+      media({ maxWidth: br.tablet.maxWidth }, { width: '100%', height: '100%', borderRadius: 0 })
+    ),
   })
 
   useBodyScrollPrevention(() => props.visible)

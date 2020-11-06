@@ -53,6 +53,9 @@ export function ElectricalCardsTable(): JSX.Element {
       fontSize: 14,
       fontWeight: 500,
     },
+    table: {
+      overflow: '',
+    },
   })
 
   const route = useCurrentRoute()
@@ -118,46 +121,52 @@ export function ElectricalCardsTable(): JSX.Element {
         onModuleAdded={(title) => setCards(1, 'items', cards[1].items.concat({ title }))}
       />
 
-      <Grid gap={8}>
-        {cards.map((group, groupIndex) => (
-          <section class={styles.section}>
-            <Flex
-              class={cls({ padding: '5px 8px' })}
-              alignItems="center"
-              justifyContent="space-between">
-              <h4 class={styles.title}>{group.title}</h4>
-              <p class={styles.selected}>{group.items.filter((v) => v.selected).length} selected</p>
-            </Flex>
+      <div class={cls({ overflow: 'auto' })}>
+        <Grid gap={8} class={cls({ minWidth: 800 })}>
+          {cards.map((group, groupIndex) => (
+            <section class={styles.section}>
+              <Flex
+                class={cls({ padding: '5px 8px' })}
+                alignItems="center"
+                justifyContent="space-between">
+                <h4 class={styles.title}>{group.title}</h4>
+                <p class={styles.selected}>
+                  {group.items.filter((v) => v.selected).length} selected
+                </p>
+              </Flex>
 
-            <Grid columns={1} gap={8}>
-              <Link class={styles.addNew} onClick={group.addNewCallback}>
-                <Icon symbol="plus" />
-                <Spacer width={8} />
-                {group.addNewTitle}
-              </Link>
+              <Grid columns={1} gap={8}>
+                <Link class={styles.addNew} onClick={group.addNewCallback}>
+                  <Icon symbol="plus" />
+                  <Spacer width={8} />
+                  {group.addNewTitle}
+                </Link>
 
-              {group.items.map((item, index) => (
-                <ElectricalCard
-                  {...item}
-                  meta={
-                    item.disabled ? (
-                      <Flex alignItems="center">
-                        <Icon symbol="warning" />
-                        <Spacer width={8} />
-                        Missing details
-                      </Flex>
-                    ) : (
-                      item.meta
-                    )
-                  }
-                  selected={item.selected}
-                  onSelect={(value) => void setCards(groupIndex, 'items', index, 'selected', value)}
-                />
-              ))}
-            </Grid>
-          </section>
-        ))}
-      </Grid>
+                {group.items.map((item, index) => (
+                  <ElectricalCard
+                    {...item}
+                    meta={
+                      item.disabled ? (
+                        <Flex alignItems="center">
+                          <Icon symbol="warning" />
+                          <Spacer width={8} />
+                          Missing details
+                        </Flex>
+                      ) : (
+                        item.meta
+                      )
+                    }
+                    selected={item.selected}
+                    onSelect={(value) =>
+                      void setCards(groupIndex, 'items', index, 'selected', value)
+                    }
+                  />
+                ))}
+              </Grid>
+            </section>
+          ))}
+        </Grid>
+      </div>
     </>
   )
 }

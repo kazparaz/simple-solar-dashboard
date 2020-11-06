@@ -12,7 +12,8 @@ import { Modal } from '../../components/Modal'
 import { Scroller } from '../../components/Scroller'
 import { Spacer } from '../../components/Spacer'
 import { useFormFields } from '../../helpers/hooks'
-import { cls } from '../../styles/css'
+import { cls, createStyles, extend, media } from '../../styles/css'
+import { br } from '../../styles/mixins'
 
 export function ModalAddNewModule(props: {
   readonly visible: boolean
@@ -20,6 +21,44 @@ export function ModalAddNewModule(props: {
   readonly onOpen?: () => void
   readonly onModuleAdded: (name: string) => void
 }): JSX.Element {
+  const styles = createStyles({
+    layout: extend(
+      {
+        display: 'grid',
+        height: '100%',
+        gridTemplateColumns: '380px minmax(0, 1fr)',
+        gridTemplateRows: 'minmax(0, 1fr) min-content',
+        gap: 32,
+      },
+      media(
+        { maxWidth: br.mobileL.maxWidth },
+        {
+          gridTemplateColumns: 'minmax(0, 1fr)',
+          gridTemplateRows: 'minmax(0, 1fr) min-content',
+        }
+      )
+    ),
+    info: extend(
+      { color: '#BABABA' },
+      media({ maxWidth: br.mobileL.maxWidth }, { display: 'none' })
+    ),
+    bottomInput: extend({
+      display: 'flex',
+      justifyContent: 'center',
+    }),
+    bottomButtons: extend(
+      { $nest: { '&&': { gridTemplateColumns: '0.9fr 1fr' } } },
+      media(
+        { maxWidth: br.mobileL.maxWidth },
+        {
+          $nest: {
+            '&&': { gridTemplateColumns: '1fr 1fr', gridGap: 24 },
+          },
+        }
+      )
+    ),
+  })
+
   const [fields] = useFormFields({
     name: { label: 'Module name', placeholder: 'Some module name', type: 'text', required: true },
     type: {
@@ -59,11 +98,7 @@ export function ModalAddNewModule(props: {
             props.onClose()
           }
         }}>
-        <Grid
-          class={cls({ height: '100%' })}
-          gridTemplateColumns="380px minmax(0, 1fr)"
-          gridTemplateRows="minmax(0, 1fr) min-content"
-          gap={32}>
+        <div class={styles.layout}>
           <Scroller class={cls({ gridRow: 'span 2', height: '100%' })}>
             <h1>Add new module</h1>
             <Spacer height={24} />
@@ -94,7 +129,7 @@ export function ModalAddNewModule(props: {
             </Grid>
           </Scroller>
 
-          <div class={cls({ color: '#BABABA' })}>
+          <div class={styles.info}>
             <Icon symbol="info" size={24} />
             <Spacer height={12} />
             <h4 class={cls({ fontWeight: 700 })}>Module type</h4>
@@ -127,16 +162,18 @@ export function ModalAddNewModule(props: {
           </div>
 
           <Grid gap={24} columns={1}>
-            <InputCheckbox {...fields.preset} />
+            <div class={styles.bottomInput}>
+              <InputCheckbox {...fields.preset} />
+            </div>
 
-            <Grid gap={16} gridTemplateColumns="100px auto">
+            <Grid class={styles.bottomButtons} gap={16}>
               <Button theme="secondary" onClick={props.onClose}>
                 Cancel
               </Button>
               <Button type="submit">Add module</Button>
             </Grid>
           </Grid>
-        </Grid>
+        </div>
       </form>
     </Modal>
   )

@@ -28,5 +28,5 @@ export function Grid(props: {
       alignItems: props.alignItems,
     },
   })
-  return <div class={cls(props.class, styles.grid)}>{props.children}</div>
+  return <div class={cls(styles.grid, props.class)}>{props.children}</div>
 }

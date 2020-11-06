@@ -9,11 +9,13 @@ import { cls, createStyles, extend, media } from '../styles/css'
 import { br } from '../styles/mixins'
 import { TemplateDashboard } from './templates/TemplateDashboard'
 
+const sectionsBr = { maxWidth: 560 }
+
 export function PageDashboardSummary(): JSX.Element {
   const styles = createStyles({
     sectionTop: extend(
       { marginBottom: 19 },
-      media(br.sections, {
+      media(sectionsBr, {
         flexWrap: 'wrap',
       })
     ),
@@ -21,17 +23,17 @@ export function PageDashboardSummary(): JSX.Element {
       {
         fontSize: 18,
       },
-      media(br.sections, { width: '100%' })
+      media(sectionsBr, { width: '100%' })
     ),
     sectionBtn: extend(
       {
         marginTop: -8,
         minWidth: 198,
       },
-      media(br.sections, { marginTop: 16 }),
+      media(sectionsBr, { marginTop: 16 }),
       media(br.mobile, { minWidth: 0, width: '100%' })
     ),
-    subGrid: media(br.sections, { $nest: { '&&': { gridTemplateColumns: 'repeat(2, 1fr)' } } }),
+    subGrid: media(sectionsBr, { $nest: { '&&': { gridTemplateColumns: 'repeat(2, 1fr)' } } }),
     subTitle: {
       marginBottom: 4,
       color: '#BABABA',

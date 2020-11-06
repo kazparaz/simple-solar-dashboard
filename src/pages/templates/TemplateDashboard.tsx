@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js'
 import { Spacer } from '../../components/Spacer'
 import { useCurrentRoute } from '../../routes'
-import { cls, createStyles, extend, media } from '../../styles/css'
+import { createStyles, extend, media } from '../../styles/css'
 import { br } from '../../styles/mixins'
 import { DashboardHeader } from './DashboardHeader'
 import { DashboardSidebar } from './DashboardSidebar'
@@ -37,6 +37,7 @@ export function TemplateDashboard(props: { readonly children: JSX.Element }): JS
         maxWidth: 800,
         width: '100%',
         margin: '0 auto',
+        minWidth: 0,
       },
       media(br.sidebar, { padding: '32px 16px 40px' })
     ),

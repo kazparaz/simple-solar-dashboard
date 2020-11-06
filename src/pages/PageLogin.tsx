@@ -100,6 +100,7 @@ export function PageLogin(): JSX.Element {
         </div>
 
         <form
+          data-netlify="true"
           onSubmit={(e) => {
             e.preventDefault()
             void handleLogin()

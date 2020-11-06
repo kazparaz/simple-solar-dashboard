@@ -1,5 +1,6 @@
-import { createSignal, createState } from 'solid-js'
+import { createSignal } from 'solid-js'
 import { Button } from '../components/Button'
+import { Flex } from '../components/Flex'
 import { Grid } from '../components/Grid'
 import { InputText } from '../components/InputText'
 import { Link } from '../components/Link'
@@ -8,40 +9,47 @@ import { api } from '../helpers/api'
 import { useFormFields } from '../helpers/hooks'
 import Logo from '../images/PVcase-logo.svg'
 import { useRouter } from '../routes'
-import { createStyles } from '../styles/css'
+import { br, cls, createStyles, extend, media } from '../styles/css'
 import { mixins } from '../styles/mixins'
 
 export function PageLogin(): JSX.Element {
   const styles = createStyles({
-    loginWrap: {
-      display: 'grid',
-      justifyContent: 'center',
-      alignContent: 'center',
-      justifyItems: 'center',
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#262626',
-    },
-    loginBox: {
-      ...mixins.modal,
-      width: 364,
-    },
-    loginTop: {
-      textAlign: 'center',
-    },
+    loginWrap: extend(
+      {
+        display: 'grid',
+        justifyItems: 'center',
+        width: '100%',
+        minHeight: '100%',
+      },
+      media(
+        { minWidth: br.mobileL.minWidth },
+        { alignContent: 'center', justifyContent: 'center', backgroundColor: '#262626' }
+      ),
+      media(br.mobile, {
+        gridTemplateRows: 'auto max-content auto max-content',
+      })
+    ),
+    loginBox: extend(
+      media({ minWidth: br.mobileL.minWidth }, { ...mixins.modal, width: 364, marginBottom: 40 }),
+      media(br.mobile, {
+        gridRow: 2,
+        padding: 30,
+        minWidth: '100%',
+      })
+    ),
     loginSubText: {
       fontSize: 16,
       fontWeight: 500,
       color: '#C4C4C4',
     },
-    loginBtn: {
-      width: '100%',
-    },
-    footer: {
-      color: '#FFFFFF',
-      fontSize: 16,
-      fontWeight: 500,
-    },
+    footer: extend(
+      { fontSize: 16, fontWeight: 500 },
+      media({ minWidth: br.mobileL.minWidth }, { color: '#FFFFFF' }),
+      media(br.mobile, {
+        gridRow: 4,
+        padding: '38px 0',
+      })
+    ),
   })
   const [status, setStatus] = createSignal(undefined as 'success' | 'fail' | 'loading' | undefined)
 
@@ -82,7 +90,7 @@ export function PageLogin(): JSX.Element {
   return (
     <div class={styles.loginWrap}>
       <div class={styles.loginBox}>
-        <div class={styles.loginTop}>
+        <div class={cls({ textAlign: 'center' })}>
           <img src={Logo} alt="PVcase logo" />
           <Spacer height={24} />
           <h1>Log in</h1>
@@ -108,20 +116,23 @@ export function PageLogin(): JSX.Element {
               error={status() === 'fail' ? 'Login failed' : undefined}
             />
           </Grid>
+
           <Spacer height={40} />
-          <Button class={styles.loginBtn} type="submit" disabled={status() === 'loading'}>
+
+          <Button class={cls({ width: '100%' })} type="submit" disabled={status() === 'loading'}>
             Log in
           </Button>
         </form>
       </div>
 
-      <Spacer height={40} />
       <p class={styles.footer}>
         Don’t have an account?{' '}
         <Link class={styles.footer} underline>
           Sign Up
         </Link>
       </p>
+
+      <Spacer height={38} />
     </div>
   )
 }

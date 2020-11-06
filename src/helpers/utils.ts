@@ -43,6 +43,10 @@ export function mutableSet<T extends Record<string, unknown>, K extends keyof T>
   ;(obj as Record<K, unknown>)[key] = value
 }
 
+export function ensureArray<T>(value: T | readonly T[]): readonly T[] {
+  return (Array.isArray(value) ? value : [value]) as never
+}
+
 export function getRandomInt(min: number, max: number): number {
   const newMin = Math.ceil(min)
   const newMax = Math.floor(max)

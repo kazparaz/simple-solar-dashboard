@@ -2,14 +2,12 @@
  * Styles related to whole app
  */
 
-// eslint-disable-next-line no-restricted-imports
-// TODO - fix, when new snowpack is released
 import { normalize } from 'csstips/lib/normalize'
 import { setupPage } from 'csstips/lib/page'
 import { raw, rule } from './css'
 
 export function addGlobalStyles(appContainerSelector: string): void {
-  // @import must be at the top of the createStyles
+  // must be at the top of the stylesheet
   raw(
     `@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");`
   )

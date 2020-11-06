@@ -1,4 +1,4 @@
-import { BoxSection } from '../../components/BoxSextion'
+import { BoxSection } from '../../components/BoxSection'
 import { Button } from '../../components/Button'
 import { Flex } from '../../components/Flex'
 import { Spacer } from '../../components/Spacer'

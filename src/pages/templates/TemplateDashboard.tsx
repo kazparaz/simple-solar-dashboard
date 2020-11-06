@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js'
 import { Spacer } from '../../components/Spacer'
-import { useCurrentRoute } from '../../routes'
+import { useCurrentRoute } from '../../helpers/hooks'
 import { createStyles, extend, media } from '../../styles/css'
 import { br } from '../../styles/mixins'
 import { DashboardHeader } from './DashboardHeader'

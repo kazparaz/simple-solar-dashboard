@@ -1,7 +1,5 @@
-import { useRouter as useRouterOriginal } from 'solid-app-router'
 import type { Component } from 'solid-js'
-import { createSignal, onCleanup } from 'solid-js'
-import { ensureType, isKeyOf } from './helpers/utils'
+import { ensureType } from './helpers/utils'
 import { Page404 } from './pages/Page404'
 import { PageDashboardPlantsElectrical } from './pages/PageDashboardPlantsElectrical/PageDashboardPlantsElectrical'
 import { PageDashboardSummary } from './pages/PageDashboardSummary'
@@ -10,7 +8,7 @@ import { PageNoContent } from './pages/PageNoContent'
 
 export type RoutePath = keyof typeof routes
 
-type RouteData = {
+export type RouteData = {
   readonly pageTitle: string
   readonly component: Component<unknown>
 }
@@ -51,26 +49,3 @@ export const routes = ensureType<Record<string, RouteData>>()({
 })
 
 // ==============================
-
-// router hook with more strict types
-export function useRouter(): (path: RoutePath) => void {
-  const router = useRouterOriginal()
-  return (path) => {
-    router.push(path)
-    dispatchEvent(new PopStateEvent('popstate')) // needed for useCurrentRoute
-  }
-}
-
-function getRouteFromLocation(): ({ readonly path: RoutePath } & RouteData) | undefined {
-  return isKeyOf(location.pathname, routes)
-    ? { path: location.pathname, ...routes[location.pathname] }
-    : undefined
-}
-
-export function useCurrentRoute(): () => ReturnType<typeof getRouteFromLocation> {
-  const [current, setCurrent] = createSignal(getRouteFromLocation())
-  const handlePopState = (): void => void setCurrent(getRouteFromLocation())
-  window.addEventListener('popstate', handlePopState)
-  onCleanup(() => window.removeEventListener('popstate', handlePopState))
-  return current
-}

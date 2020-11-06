@@ -5,8 +5,9 @@
 import { Route, Router } from 'solid-app-router'
 import { createEffect } from 'solid-js'
 import { render } from 'solid-js/dom'
+import { useCurrentRoute, useRouter } from './helpers/hooks'
 import { assertIsDefined, entries } from './helpers/utils'
-import { routes, useCurrentRoute, useRouter } from './routes'
+import { routes } from './routes'
 import { addGlobalStyles } from './styles/global'
 
 export const appContainerSelector = '#app'

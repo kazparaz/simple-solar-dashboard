@@ -1,10 +1,13 @@
-import { createEffect, createState } from 'solid-js'
+import { useRouter as useRouterOriginal } from 'solid-app-router'
+import { createEffect, createSignal, createState, onCleanup } from 'solid-js'
 import type { SetStateFunction, State } from 'solid-js/types/reactive/state'
 import type { InputCheckbox } from '../components/InputCheckbox'
 import type { InputNumber } from '../components/InputNumber'
 import type { InputSelectTypes } from '../components/InputSelect'
 import type { InputText } from '../components/InputText'
-import { entries, mutableSet } from './utils'
+import type { RouteData, RoutePath } from '../routes'
+import { routes } from '../routes'
+import { entries, isKeyOf, mutableSet } from './utils'
 
 type InputProps = {
   readonly text: Omit<Parameters<typeof InputText>[0], 'type'>
@@ -57,4 +60,30 @@ export function useBodyScrollPrevention(visible: () => boolean): void {
     // eslint-disable-next-line functional/immutable-data
     document.body.style.overflow = visible() ? 'hidden' : 'auto'
   })
+}
+
+// ==============================
+
+// router hook with more strict types
+export function useRouter(): (path: RoutePath) => void {
+  const router = useRouterOriginal()
+  return (path) => {
+    router.push(path)
+    window.scroll(0, 0)
+    dispatchEvent(new PopStateEvent('popstate')) // needed for useCurrentRoute
+  }
+}
+
+function getRouteFromLocation(): ({ readonly path: RoutePath } & RouteData) | undefined {
+  return isKeyOf(location.pathname, routes)
+    ? { path: location.pathname, ...routes[location.pathname] }
+    : undefined
+}
+
+export function useCurrentRoute(): () => ReturnType<typeof getRouteFromLocation> {
+  const [current, setCurrent] = createSignal(getRouteFromLocation())
+  const handlePopState = (): void => void setCurrent(getRouteFromLocation())
+  window.addEventListener('popstate', handlePopState)
+  onCleanup(() => window.removeEventListener('popstate', handlePopState))
+  return current
 }

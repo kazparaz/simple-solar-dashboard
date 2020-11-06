@@ -1,5 +1,6 @@
+import { useRouter } from '../helpers/hooks'
 import { isKeyOf } from '../helpers/utils'
-import { useRouter, RoutePath, routes } from '../routes'
+import { RoutePath, routes } from '../routes'
 import { cls, createStyles } from '../styles/css'
 
 export function Link(props: {

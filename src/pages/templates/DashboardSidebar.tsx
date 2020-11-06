@@ -1,6 +1,6 @@
 import { Link } from '../../components/Link'
-import { useBodyScrollPrevention } from '../../helpers/hooks'
-import { routes, RoutePath, useCurrentRoute } from '../../routes'
+import { useBodyScrollPrevention, useCurrentRoute } from '../../helpers/hooks'
+import { routes, RoutePath } from '../../routes'
 import { cls, createStyles, extend, media } from '../../styles/css'
 import { br } from '../../styles/mixins'
 

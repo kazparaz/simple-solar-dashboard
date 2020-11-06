@@ -15,9 +15,4 @@ export const mixins = {
     borderRadius: 8,
     borderColor: '#DEDEDE',
   },
-  boxShadows: {
-    subtle: {
-      boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.45)',
-    },
-  },
 } as const

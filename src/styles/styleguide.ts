@@ -27,8 +27,10 @@ export type StyleGuide = {
     | '#EDF4F7'
     | '#FAFAFA'
     | '#FFFFFF'
+    | 'rgba(0, 0, 0, 0.8)'
     | 'currentColor'
     | 'inherit'
+    | 'transparent'
   readonly fontSize: 24 | 18 | 16 | 14 | 12 | 10
   readonly fontFamily: 'Inter, system-ui, sans-serif'
   readonly fontWeight: 400 | 500 | 700

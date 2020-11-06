@@ -6,10 +6,10 @@ import { Route, Router } from 'solid-app-router'
 import { createEffect } from 'solid-js'
 import { render } from 'solid-js/dom'
 import { assertIsDefined, entries } from './helpers/utils'
-import { routes, useCurrentRoute } from './routes'
+import { routes, useCurrentRoute, useRouter } from './routes'
 import { addGlobalStyles } from './styles/global'
 
-const appContainerSelector = '#app'
+export const appContainerSelector = '#app'
 const routesArray = entries(routes).map(([path, { component }]) => ({ path, component }))
 
 // Initiate app
@@ -31,9 +31,14 @@ function renderApp(): void {
 function App(): JSX.Element {
   addGlobalStyles(appContainerSelector)
   createEffect(() => {
+    const router = useRouter()
     const route = useCurrentRoute()()
-    // eslint-disable-next-line functional/immutable-data
-    document.title = route ? `${route.pageTitle} | Solar Dashboard` : `Solar Dashboard`
+    if (route) {
+      // eslint-disable-next-line functional/immutable-data
+      document.title = route ? `${route.pageTitle} | Solar Dashboard` : `Solar Dashboard`
+    } else {
+      router('/login')
+    }
   })
   return <Route />
 }

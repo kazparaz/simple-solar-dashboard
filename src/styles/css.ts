@@ -26,7 +26,7 @@ export type StrictCSSProperties = {
 } &
   OverriddenCSSProperties
 
-type StrictNestedCSSProperties = StrictCSSProperties & {
+export type StrictNestedCSSProperties = StrictCSSProperties & {
   readonly $nest?: Readonly<
     Record<keyof typestyle.types.NestedCSSSelectors, StrictNestedCSSProperties>
   >
@@ -58,9 +58,9 @@ export function createStyles<T extends string>(
   return typestyle.stylesheet(classes)
 }
 
-// export function style(...objects: readonly StrictNestedCSSProperties[]): string {
-//   return typestyle.style(...objects)
-// }
+export function createStyle(object: StrictNestedCSSProperties): string {
+  return typestyle.style(object)
+}
 
 export function raw(css: string): void {
   return typestyle.cssRaw(css)

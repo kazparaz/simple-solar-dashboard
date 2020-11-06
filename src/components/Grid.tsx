@@ -5,6 +5,8 @@ export function Grid(props: {
   readonly class?: string
   readonly gap?: number
   readonly columns?: number
+  readonly gridTemplateColumns?: StrictCSSProperties['gridTemplateColumns']
+  readonly gridTemplateRows?: StrictCSSProperties['gridTemplateRows']
   readonly justifyContent?: StrictCSSProperties['justifyContent']
   readonly justifyItems?: StrictCSSProperties['justifyItems']
   readonly alignContent?: StrictCSSProperties['alignContent']
@@ -16,7 +18,10 @@ export function Grid(props: {
     grid: {
       display: 'grid',
       gap: props.gap,
-      gridTemplateColumns: `repeat(${props.columns ?? props.children.length}, minmax(0, 1fr))`,
+      gridTemplateColumns:
+        props.gridTemplateColumns ??
+        `repeat(${props.columns ?? props.children.length}, minmax(0, 1fr))`,
+      gridTemplateRows: props.gridTemplateRows,
       justifyContent: props.justifyContent,
       justifyItems: props.justifyItems,
       alignContent: props.alignContent,

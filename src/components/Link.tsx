@@ -10,7 +10,9 @@ export function Link(props: {
   readonly onClick?: () => void
 }): JSX.Element {
   const styles = createStyles({
-    link: { textDecoration: props.underline ? 'underline' : 'none' },
+    link: {
+      textDecoration: props.underline ? 'underline' : 'none',
+    },
   })
   const router = useRouter()
   return (

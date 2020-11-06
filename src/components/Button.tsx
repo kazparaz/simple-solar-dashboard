@@ -1,6 +1,5 @@
 import type { RoutePath } from '../routes'
 import { cls, createStyles } from '../styles/css'
-import { mixins } from '../styles/mixins'
 import { Link } from './Link'
 
 export function Button(props: {
@@ -11,10 +10,12 @@ export function Button(props: {
   readonly disabled?: boolean
   readonly type?: JSX.ButtonHTMLAttributes<unknown>['type']
   readonly href?: string | RoutePath
+  readonly form?: string
   readonly onClick?: () => void
 }): JSX.Element {
   const styles = createStyles({
     button: {
+      padding: '0 10px',
       appearance: 'none',
       borderRadius: 4,
       borderStyle: 'solid',
@@ -22,7 +23,7 @@ export function Button(props: {
       cursor: 'pointer',
       fontFamily: 'Inter, system-ui, sans-serif',
       textAlign: 'center',
-      ...mixins.boxShadows.subtle,
+      boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.45)',
 
       $nest: {
         '&:focus': {
@@ -34,19 +35,16 @@ export function Button(props: {
         },
         '&.size-default': {
           height: 40,
-          padding: '0 16px',
           fontSize: 14,
           fontWeight: 500,
         },
         '&.size-medium': {
           height: 32,
-          padding: '0 16px',
           fontSize: 14,
           fontWeight: 500,
         },
         '&.size-small': {
           height: 24,
-          padding: '0 16px',
           fontSize: 10,
           fontWeight: 500,
           boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)',
@@ -102,6 +100,7 @@ export function Button(props: {
       class={classes}
       disabled={props.disabled}
       type={props.type ?? 'button'}
+      form={props.form}
       onClick={() => props.onClick?.()}>
       {props.children}
     </button>

@@ -1,6 +1,6 @@
 import { createState } from 'solid-js'
 import { Button } from '../components/Button'
-import { Input } from '../components/Input'
+import { InputText } from '../components/InputText'
 import { Link } from '../components/Link'
 import { Spacer } from '../components/Spacer'
 import { api } from '../helpers/api'
@@ -79,7 +79,7 @@ export function PageLogin(): JSX.Element {
             e.preventDefault()
             void handleLogin()
           }}>
-          <Input
+          <InputText
             label="Name"
             type="text"
             required
@@ -88,7 +88,7 @@ export function PageLogin(): JSX.Element {
             onChange={(v) => setState('inputs', 'username', v)}
           />
           <Spacer height={24} />
-          <Input
+          <InputText
             label="Password"
             type="password"
             required

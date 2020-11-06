@@ -1,6 +1,7 @@
-import { ensureType } from '../helpers/utils'
+import { createEffect } from 'solid-js'
+import { assert, ensureType } from '../helpers/utils'
 import type { StrictCSSProperties } from '../styles/css'
-import { createStyles } from '../styles/css'
+import { cls, createStyles } from '../styles/css'
 
 const symbols = ensureType<Record<string, (color: string) => JSX.Element>>()({
   x: (color) => (
@@ -45,22 +46,42 @@ const symbols = ensureType<Record<string, (color: string) => JSX.Element>>()({
       <path stroke={color} fill="transparent" d="M8 0.5L3.5 7L0.5 4.5" />
     </svg>
   ),
+  down: (color) => (
+    <svg width="10" height="6" viewBox="0 0 10 6">
+      <path d="M9 1L5 5L1 1" fill="transparent" stroke={color} />
+    </svg>
+  ),
+  selectDown: (color) => (
+    <svg width="6" height="3" viewBox="0 0 6 3">
+      <path d="M3 3L6 0L2.62268e-07 -5.24536e-07L3 3Z" fill={color} />
+    </svg>
+  ),
 })
 
 export function Icon(props: {
+  readonly class?: string
   readonly symbol: keyof typeof symbols
+  readonly size?: number
   readonly color?: StrictCSSProperties['color']
 }): JSX.Element {
   const style = createStyles({
     icon: {
       display: 'block',
-      $nest: {
-        '> svg': {
-          display: 'block',
-        },
-      },
+      $nest: { '> svg': { display: 'block' } },
     },
   })
 
-  return <span class={style.icon}>{symbols[props.symbol](props.color ?? 'currentColor')}</span>
+  const svg = symbols[props.symbol](props.color ?? 'currentColor')
+  assert(svg instanceof SVGElement)
+
+  createEffect(() => {
+    const attrs = {
+      width: Number.parseFloat(svg.getAttribute('width') || ''),
+      height: Number.parseFloat(svg.getAttribute('height') || ''),
+    }
+    const scaleRatio = (props.size ?? attrs.height) / attrs.height
+    svg.setAttribute('width', Math.round(attrs.width * scaleRatio).toString())
+    svg.setAttribute('height', Math.round(attrs.height * scaleRatio).toString())
+  })
+  return <span class={cls(style.icon, props.class)}>{svg}</span>
 }

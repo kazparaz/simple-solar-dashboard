@@ -47,7 +47,7 @@ export type InputBaseProps<T> = {
 }
 
 export function InputBase<T>(
-  props: Pick<InputBaseProps<T>, 'label' | 'error' | 'disabled'> & {
+  props: Pick<InputBaseProps<T>, 'label' | 'error' | 'disabled' | 'name'> & {
     readonly children: JSX.Element
     readonly inputClass: string
   }
@@ -81,7 +81,7 @@ export function InputBase<T>(
 
   return (
     <div class={styles.inputComponent}>
-      <label class={cls(styles.label, { [styles.labelDisabled]: props.disabled })}>
+      <label class={cls(styles.label, { [styles.labelDisabled]: props.disabled })} for={props.name}>
         {props.label}
       </label>
       <Spacer height={3} />

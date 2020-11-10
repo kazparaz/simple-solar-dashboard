@@ -68,7 +68,7 @@ export function useBodyScrollPrevention(visible: () => boolean): void {
 export function useRouter(): (path: RoutePath) => void {
   const router = useRouterOriginal()
   return (path) => {
-    router.push(path)
+    router.router.push(path)
     window.scroll(0, 0)
     dispatchEvent(new PopStateEvent('popstate')) // needed for useCurrentRoute
   }

@@ -1,4 +1,4 @@
-# New Project
+# Simple Solar Dashboard
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
@@ -17,7 +17,7 @@ You will also see any lint errors in the console.
 Builds a static copy of your site to the `build/` folder.
 Your app is ready to be deployed!
 
-### TODO
+### Maybe todo, maybe not
 
 - css server side render (https://typestyle.github.io/#/server)
 - update snowpack when releases (https://github.com/snowpackjs/snowpack/discussions/1312)
